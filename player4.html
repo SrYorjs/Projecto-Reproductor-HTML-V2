@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Marías - Heavy (Extended)</title>
+    <style>
+        :root {
+            --deep-red: #0f0101;
+            --blood-red: #ef4444; 
+            --glass: rgba(255, 255, 255, 0.03);
+            --glow: rgba(239, 68, 68, 0.4);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #2b0505 0%, #0a0101 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 50px 0;
+        }
+
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            animation: rise linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+        }
+
+        .main-container {
+            display: flex;
+            width: 90%;
+            max-width: 1100px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 40px;
+            padding: 50px;
+            gap: 40px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+            z-index: 10;
+            margin-bottom: 60px;
+        }
+
+        .player-left {
+            flex: 0 0 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding-right: 40px;
+        }
+
+        .cover {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: 0 0 50px var(--glow);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+            transition: 0.3s ease;
+            margin-top: -5px;
+        }
+
+        .playing::-webkit-slider-thumb {
+            background: var(--blood-red) !important;
+            box-shadow: 0 0 20px var(--blood-red) !important;
+        }
+
+        .player-right {
+            flex: 1;
+            height: 480px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lyrics-scroll {
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            padding-left: 25px;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+
+        .line {
+            padding: 18px 0;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            opacity: 0.15;
+        }
+
+        .eng {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .esp {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.7;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .line.active {
+            opacity: 1;
+            color: var(--blood-red);
+            transform: translateX(10px);
+        }
+
+        .line.active .eng span {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .meaning-box {
+            width: 90%;
+            max-width: 1100px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-radius: 30px;
+            padding: 45px;
+            box-sizing: border-box;
+            z-index: 10;
+            margin-bottom: 80px;
+        }
+
+        .meaning-box h2 {
+            color: var(--blood-red);
+            margin-top: 0;
+            font-size: 1.6rem;
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .meaning-content {
+            line-height: 1.8;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .play-btn {
+            width: 75px; height: 75px;
+            background: white; color: black;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            cursor: pointer; font-size: 28px; border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bubbleBox"></div>
+    <div class="main-container">
+        <div class="player-left">
+            <img src="heavy.png" class="cover">
+            <div style="text-align:center;">
+                <h2 style="margin:0; color: var(--blood-red);">Heavy</h2>
+                <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:3px; font-size:0.8rem;">THE MARÍAS</p>
+            </div>
+            <input type="range" id="progress" value="0">
+            <div style="display:flex; justify-content:space-between; width:100%; opacity:0.5; font-size:13px; margin-top:10px;">
+                <span id="curTime">0:00</span><span>4:13</span>
+            </div>
+            <div style="margin:30px 0; display:flex; gap:35px; align-items:center;">
+                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="20" style="filter:invert(1)"></button>
+                <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
+                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="20" style="filter:invert(1)"></button>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; width:80%;">
+                <span style="filter: invert(1);">🔉</span>
+                <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+            </div>
+            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top: 20px;">HTML made by SrYor</h3>
+        </div>
+        <div class="player-right">
+            <div class="lyrics-scroll" id="lrcContainer">
+                <div class="line" data-t="14.33"><span class="eng">I'm heavy</span><span class="esp">Soy pesado</span></div>
+                <div class="line" data-t="19.14"><span class="eng">I'm by your side</span><span class="esp">Estoy a tu lado</span></div>
+                <div class="line" data-t="24.02"><span class="eng">Forget me 'cause I know what I need</span><span class="esp">Olvídame porque sé lo que necesito</span></div>
+                <div class="line" data-t="28.78"><span class="eng">Like a loser like me could be fine</span><span class="esp">Como si un perdedor como yo pudiera estar bien</span></div>
+                
+                <div class="line" data-t="36.57"><span class="eng">I'm heavy</span><span class="esp">Soy pesado</span></div>
+                <div class="line" data-t="41.38"><span class="eng">Alone inside</span><span class="esp">Solo por dentro</span></div>
+                <div class="line" data-t="46.32"><span class="eng">Don't tell me what I want, what I need</span><span class="esp">No me digas lo que quiero, lo que necesito</span></div>
+                <div class="line" data-t="51.06"><span class="eng">Like a loser like me will be fine</span><span class="esp">Como si un perdedor como yo estará bien</span></div>
+                
+                <div class="line" data-t="57.20"><span class="eng">Maybe I'm living in my head</span><span class="esp">Tal vez estoy viviendo en mi cabeza</span></div>
+                <div class="line" data-t="62.19"><span class="eng">Maybe I'm living to pretend</span><span class="esp">Tal vez estoy viviendo para fingir</span></div>
+                <div class="line" data-t="67.00"><span class="eng">Maybe I wanna stay in bed</span><span class="esp">Tal vez quiero quedarme en la cama</span></div>
+                <div class="line" data-t="70.25"><span class="eng">Far from the weight of the world in my hands</span><span class="esp">Lejos del peso del mundo en mis manos</span></div>
+                <div class="line" data-t="74.60"><span class="eng">'Cause they don't understand</span><span class="esp">Porque no entienden</span></div>
+
+                <div class="line" data-t="101.68"><span class="eng">Is someone telling me don't get in the water?</span><span class="esp">¿Alguien me está diciendo "no entres en el agua"?</span></div>
+                <div class="line" data-t="107.58"><span class="eng">What have I done?</span><span class="esp">¿Qué he hecho?</span></div>
+                <div class="line" data-t="111.97"><span class="eng">I don't wanna get lost inside the color under my tongue</span><span class="esp">No quiero perderme dentro del color bajo mi lengua</span></div>
+                <div class="line" data-t="121.53"><span class="eng">'Cause I don't wanna be in love with another</span><span class="esp">Porque no quiero estar enamorado de otro</span></div>
+                <div class="line" data-t="125.95"><span class="eng">Even in another life</span><span class="esp">Incluso en otra vida</span></div>
+                <div class="line" data-t="131.41"><span class="eng">Can someone tell me it's alright to be covered</span><span class="esp">¿Alguien puede decirme que está bien estar cubierto</span></div>
+                <div class="line" data-t="135.87"><span class="eng">Underneath the covers? But I</span><span class="esp">Debajo de las cobijas? Pero yo</span></div>
+                <div class="line" data-t="140.09"><span class="eng">No, I don't need to sleep anymore</span><span class="esp">No, ya no necesito dormir</span></div>
+
+                <div class="line" data-t="146.37"><span class="eng">Is someone banging at my door?</span><span class="esp">¿Alguien está golpeando en mi puerta</span></div>
+                <div class="line" data-t="151.26"><span class="eng">When I just wanna be alone?</span><span class="esp">Cuando solo quiero estar solo?</span></div>
+                <div class="line" data-t="156.04"><span class="eng">Is someone banging at my door?</span><span class="esp">¿Alguien está golpeando en mi puerta?</span></div>
+                <div class="line" data-t="161.13"><span class="eng">Je ne sais pas qui est ici</span><span class="esp">No sé quién está aquí</span></div>
+                <div class="line" data-t="165.95"><span class="eng">Is someone banging at my door</span><span class="esp">¿Alguien está golpeando en mi puerta</span></div>
+                <div class="line" data-t="170.99"><span class="eng">When I just wanna be alone</span><span class="esp">Cuando solo quiero estar solo?</span></div>
+                <div class="line" data-t="175.87"><span class="eng">Is someone banging at my door, door, door, door?</span><span class="esp">¿Alguien está golpeando en mi puerta, puerta, puerta, puerta?</span></div>
+                <div class="line" data-t="182.82"><span class="eng">Door, door, door, door, at my door</span><span class="esp">Puerta, puerta, puerta, puerta, mi puerta</span></div>
+
+                <div class="line" data-t="190.81"><span class="eng">Is someone banging at my door?</span><span class="esp">¿Alguien está golpeando en mi puerta?</span></div>
+                <div class="line" data-t="195.72"><span class="eng">'Cause I just wanna be alone</span><span class="esp">Porque solo quiero estar solo</span></div>
+                <div class="line" data-t="200.73"><span class="eng">Yeah, I just wanna be alone</span><span class="esp">Sí, solo quiero estar solo</span></div>
+                <div class="line" data-t="210.91"><span class="eng">I just wanna be alone</span><span class="esp">Solo quiero estar solo</span></div>
+                <div class="line" data-t="215.57"><span class="eng">Yeah, I just wanna be alone</span><span class="esp">Sí, solo quiero estar solo</span></div>
+                <div class="line" data-t="219.53"><span class="eng">I just wanna be alone</span><span class="esp">Solo quiero estar solo</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="meaning-box">
+        <h2>Explorando la Carga Emocional en 'Heavy' de The Marías</h2>
+        <div class="meaning-content">
+            <p>La canción 'Heavy' de The Marías sumerge al oyente en una profunda reflexión sobre el peso de las emociones y la soledad. A través de su letra, la banda expresa un sentimiento de pesadez emocional, representado por la repetición del adjetivo 'heavy' (pesado), que simboliza tanto la carga emocional como la dificultad de llevarla. La voz narrativa se describe a sí misma como un 'perdedor', lo que podría interpretarse como una lucha con la autoestima o un sentimiento de no cumplir con las expectativas externas o internas.</p>
+            <p>El estribillo 'Maybe I'm living in my head' sugiere una desconexión con la realidad, viviendo más en un mundo interno que en el externo. Esta línea, junto con 'Maybe I wanna stay in bed far from the weight of the world in my hands', refleja el deseo de escapar de las responsabilidades y presiones, buscando refugio en la soledad. La repetición de 'Is someone banging at my door?' enfatiza la intrusión del mundo exterior en su espacio personal, subrayando el conflicto entre el deseo de aislamiento y las demandas externas.</p>
+            <p>Musicalmente, The Marías es conocido por su estilo suave y etéreo que combina elementos del dream pop y el indie rock. Esta atmósfera musical complementa la temática de la canción, creando un espacio sonoro que refleja la introspección y la melancolía de la letra. 'Heavy' no solo es una exploración de la soledad y el aislamiento, sino también un llamado a entender y respetar los límites personales y emocionales.</p>
+            <p style="margin-top:20px; font-weight:bold; color:var(--blood-red);">Escrita por: Josh Conway, Maria Zardoya.</p>
+            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top:20px;">HTML made by SrYor</h3>
+        </div>
+    </div>
+
+    <audio id="audio" src="heavy.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const container = document.getElementById('lrcContainer');
+        const playBtn = document.getElementById('playBtn');
+        const progress = document.getElementById('progress');
+        const curTimeText = document.getElementById('curTime');
+        const bubbleBox = document.getElementById('bubbleBox');
+        let currentActiveLine = null;
+
+        function createBubbles() {
+            for (let i = 0; i < 25; i++) {
+                let b = document.createElement('div'); b.className = 'bubble';
+                let size = Math.random() * 45 + 10 + 'px';
+                b.style.width = size; b.style.height = size;
+                b.style.left = Math.random() * 100 + '%';
+                b.style.animationDuration = Math.random() * 7 + 4 + 's';
+                bubbleBox.appendChild(b);
+            }
+        }
+        createBubbles();
+
+        function toggle() { audio.paused ? audio.play() : audio.pause(); }
+
+        document.addEventListener('click', (e) => {
+            const line = e.target.closest('.line');
+            if (line) {
+                audio.currentTime = parseFloat(line.dataset.t);
+                audio.play();
+            }
+        });
+
+        audio.addEventListener('play', () => { playBtn.innerHTML = "❚❚"; progress.classList.add('playing'); });
+        audio.addEventListener('pause', () => { playBtn.innerHTML = "►"; progress.classList.remove('playing'); });
+
+        audio.addEventListener('timeupdate', () => {
+            const t = audio.currentTime;
+            if (audio.duration) progress.value = (t / audio.duration) * 100;
+            curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+
+            const lines = document.querySelectorAll('.line');
+            lines.forEach((line, i, all) => {
+                const startTime = parseFloat(line.dataset.t);
+                const endTime = all[i+1] ? parseFloat(all[i+1].dataset.t) : Infinity;
+
+                if (t >= startTime && t < endTime) {
+                    if (currentActiveLine !== line) {
+                        if (currentActiveLine) {
+                            currentActiveLine.classList.remove('active');
+                            const eng = currentActiveLine.querySelector('.eng');
+                            if (eng.dataset.orig) eng.innerHTML = eng.dataset.orig;
+                        }
+                        currentActiveLine = line;
+                        line.classList.add('active');
+                        const eng = line.querySelector('.eng');
+                        const text = eng.textContent;
+                        eng.dataset.orig = text;
+                        eng.innerHTML = [...text].map((c, idx) => `<span style="animation-delay:${idx*0.03}s">${c===' '?'&nbsp;':c}</span>`).join('');
+                        container.scrollTo({ top: line.offsetTop - container.offsetTop - 180, behavior: 'smooth' });
+                    }
+                }
+            });
+            if (audio.duration && t >= audio.duration - 1) goShuffle();
+        });
+
+        function goShuffle() {
+            const p = ['player.html', 'player2.html', 'player3.html'];
+            window.location.href = p[Math.floor(Math.random() * p.length)];
+        }
+
+        progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
+        document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
+    </script>
+</body>
+</html>

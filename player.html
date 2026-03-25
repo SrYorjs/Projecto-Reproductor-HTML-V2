@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Marías - Lejos de Ti</title>
+    <style>
+        :root {
+            --deep-ocean: #010b14;
+            --water-blue: #38bdf8;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glow: rgba(56, 189, 248, 0.5);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #0a1e35 0%, #010b14 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 50px 0;
+        }
+
+        /* Burbujas Estilo Player 3 */
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rise linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+        }
+
+        .main-container {
+            display: flex;
+            width: 90%;
+            max-width: 1100px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 40px;
+            padding: 50px;
+            gap: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            margin-bottom: 60px;
+        }
+
+        .player-left {
+            flex: 0 0 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding-right: 40px;
+        }
+
+        .cover {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: 0 0 50px var(--glow);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transition: 0.3s ease;
+            margin-top: -5px;
+        }
+
+        .playing::-webkit-slider-thumb {
+            background: var(--water-blue) !important;
+            box-shadow: 0 0 20px var(--water-blue) !important;
+        }
+
+        .player-right {
+            flex: 1;
+            height: 480px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lyrics-scroll {
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            padding-left: 25px;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+
+        .line {
+            padding: 20px 0;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            margin-left: 5px;
+            opacity: 0.1;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .line.active {
+            opacity: 1;
+            color: var(--water-blue);
+            transform: translateX(10px);
+        }
+
+        .line.active span {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .meaning-box {
+            width: 90%;
+            max-width: 1100px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 45px;
+            box-sizing: border-box;
+            z-index: 10;
+            margin-bottom: 80px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .meaning-box h2 {
+            color: var(--water-blue);
+            margin-top: 0;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .meaning-content {
+            line-height: 1.8;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .play-btn {
+            width: 75px;
+            height: 75px;
+            background: white;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 28px;
+            border: none;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="bubbleBox"></div>
+
+    <div class="main-container">
+        <div class="player-left">
+            <img src="icon.png" class="cover">
+            <div style="text-align:center;">
+                <h2 style="margin:0; color: var(--water-blue);">Lejos de Ti</h2>
+                <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:3px; font-size:0.8rem;">THE MARÍAS</p>
+            </div>
+
+            <input type="range" id="progress" value="0">
+            <div style="display:flex; justify-content:space-between; width:100%; opacity:0.5; font-size:13px; margin-top:10px;">
+                <span id="curTime">0:00</span><span id="totalTime">2:59</span>
+            </div>
+
+            <div style="margin:30px 0; display:flex; gap:35px; align-items:center;">
+                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="20"></button>
+                <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
+                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="20"></button>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:12px; width:80%;">
+                <span>🔉</span>
+                <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+            </div>
+
+            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top: 20px;">HTML made by SrYor</h3>
+        </div>
+
+        <div class="player-right">
+            <div class="lyrics-scroll" id="lrcContainer">
+                <div class="line" data-t="18.67">El frío, la noche</div>
+                <div class="line" data-t="21.57">Siempre me acuerdo de ti</div>
+                <div class="line" data-t="30.50">Mile' de cancione'</div>
+                <div class="line" data-t="33.31">Siempre me acuerdo de ti</div>
+                <div class="line" data-t="39.29">¿Por qué estoy lejo' de ti?</div>
+                <div class="line" data-t="45.49">No te olvide' de mí</div>
+                <div class="line" data-t="50.99">¿Por qué estoy lejo' de ti?</div>
+                <div class="line" data-t="57.17">No te olvide' de mí</div>
+                <div class="line" data-t="65.57">Tus ojos tan tristes</div>
+                <div class="line" data-t="68.49">Siempre me acuerdo de ti</div>
+                <div class="line" data-t="77.21">Momentos felices</div>
+                <div class="line" data-t="80.14">Siempre me acuerdo de ti</div>
+                <div class="line" data-t="86.06">¿Por qué estoy lejo' de ti?</div>
+                <div class="line" data-t="92.26">No te olvide' de mí</div>
+                <div class="line" data-t="97.82">¿Por qué estoy lejo' de ti?</div>
+                <div class="line" data-t="103.97">No te olvide' de mí</div>
+                <div class="line" data-t="110.97">¿Por qué te sigo queriendo?</div>
+                <div class="line" data-t="115.00">Ya no puedo más</div>
+                <div class="line" data-t="116.87">Entre tus manos me estoy muriendo</div>
+                <div class="line" data-t="122.72">¿Por qué yo sigo cantando "No Me Queda Más"</div>
+                <div class="line" data-t="128.62">Entre mis labios, a todo llanto?</div>
+                <div class="line" data-t="135.83">Dormía en tu pecho</div>
+                <div class="line" data-t="138.72">Siempre me acuerdo de ti</div>
+                <div class="line" data-t="144.58">¿Por qué estás lejos de mí?</div>
+                <div class="line" data-t="150.41">Yo no me olvido de ti</div>
+                <div class="line" data-t="156.34">¿Por qué estás lejos de mí?</div>
+                <div class="line" data-t="162.09">Nunca me olvido de ti</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="meaning-box">
+        <h2>La Nostalgia y el Amor a Distancia en 'Lejos de Ti'</h2>
+        <div class="meaning-content">
+            La canción 'Lejos de Ti' de The Marias es una expresión melancólica de amor y añoranza. La letra refleja el sentimiento de distancia emocional y física entre dos personas que, a pesar de estar separadas, no pueden olvidarse la una de la otra. El frío y la noche son metáforas de la soledad y la tristeza que siente el narrador al recordar a su ser amado.
+            <br><br>
+            El estribillo, con su pregunta retórica '¿Por qué estoy lejos de ti?', subraya la confusión y el deseo de estar cerca de la persona amada. La repetición de 'no te olvides de mí' es un ruego para mantener viva la conexión a pesar de la distancia.
+            <br><br>
+            La música de The Marias se caracteriza por su fusión de géneros, incluyendo elementos de indie pop, jazz y psicodelia, lo que les permite crear atmósferas envolventes que complementan sus letras introspectivas.
+            
+            <p style="margin-top:20px; font-weight:bold; color:var(--water-blue); opacity:0.9;">
+                Escrita por: Josh Conway, Maria Zardoya.
+            </p>
+            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top:20px;">HTML made by SrYor</h3>
+        </div>
+    </div>
+
+    <audio id="audio" src="lejos.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const container = document.getElementById('lrcContainer');
+        const playBtn = document.getElementById('playBtn');
+        const progress = document.getElementById('progress');
+        const curTimeText = document.getElementById('curTime');
+        const totalTimeText = document.getElementById('totalTime');
+        let currentActiveLine = null;
+
+        audio.volume = 0.8;
+
+        function createBubbles() {
+            const box = document.getElementById('bubbleBox');
+            for (let i = 0; i < 25; i++) {
+                let b = document.createElement('div'); b.className = 'bubble';
+                let size = Math.random() * 40 + 10 + 'px';
+                b.style.width = size; b.style.height = size;
+                b.style.left = Math.random() * 100 + '%';
+                b.style.animationDuration = Math.random() * 8 + 4 + 's';
+                box.appendChild(b);
+            }
+        }
+        createBubbles();
+
+        function toggle() { audio.paused ? audio.play() : audio.pause(); }
+
+        audio.addEventListener('loadedmetadata', () => {
+            const mins = Math.floor(audio.duration / 60);
+            const secs = Math.floor(audio.duration % 60);
+            totalTimeText.textContent = mins + ":" + secs.toString().padStart(2, '0');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.line')) {
+                audio.currentTime = parseFloat(e.target.closest('.line').dataset.t);
+                audio.play();
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            playBtn.innerHTML = "❚❚";
+            progress.classList.add('playing');
+        });
+
+        audio.addEventListener('pause', () => {
+            playBtn.innerHTML = "►";
+            progress.classList.remove('playing');
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const t = audio.currentTime;
+            if (audio.duration) progress.value = (t / audio.duration) * 100;
+            curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+
+            const lines = document.querySelectorAll('.line');
+            lines.forEach((line) => {
+                const startTime = parseFloat(line.dataset.t);
+                const nextLine = line.nextElementSibling;
+                const endTime = (nextLine && nextLine.classList.contains('line')) ? parseFloat(nextLine.dataset.t) : Infinity;
+
+                if (t >= startTime && t < endTime) {
+                    if (currentActiveLine !== line) {
+                        if (currentActiveLine) {
+                            currentActiveLine.classList.remove('active');
+                            const prevText = currentActiveLine.dataset.orig;
+                            if (prevText) currentActiveLine.innerHTML = prevText;
+                        }
+                        currentActiveLine = line;
+                        line.classList.add('active');
+
+                        const text = line.textContent;
+                        line.dataset.orig = text;
+                        line.innerHTML = [...text].map((c, i) =>
+                            `<span style="animation-delay:${i * 0.03}s">${c === ' ' ? '&nbsp;' : c}</span>`
+                        ).join('');
+
+                        container.scrollTo({
+                            top: line.offsetTop - container.offsetTop - (container.clientHeight / 2) + 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+
+            // Auto-shuffle al terminar
+            if (audio.duration && t >= audio.duration - 1) goShuffle();
+        });
+
+        function goShuffle() {
+            const pages = ['player2.html', 'player3.html', 'player4.html'];
+            window.location.href = pages[Math.floor(Math.random() * pages.length)];
+        }
+
+        progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
+        document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
+    </script>
+</body>
+</html>
