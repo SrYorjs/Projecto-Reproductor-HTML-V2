@@ -89,7 +89,7 @@ Este ecosistema web representa mi **laboratorio personal de desarrollo**, diseñ
 
 **Juan Navarrete (SrYor)**
 * **Académico:** Estudiante de Ingeniería Industrial en Procesos Productivos (UTM).
-* **Expertise:** Electrónica Analógica/Digital, Automatización Industrial, Robótica (Arduino/PLC) y Desarrollo Web.
+* **Expertise:** Electrónica Analógica/Digital, Automatización, Robótica y Desarrollo Web.
 * **Visión:** Integración de sistemas industriales con interfaces de usuario modernas y funcionales.
 * **GitHub:** [@SrYorjs](https://github.com/SrYorjs)
 
