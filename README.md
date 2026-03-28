@@ -1,33 +1,58 @@
 # 🎧 Interactive Sonic Experience V2: A Community-Driven Music Player
 
-![GitHub repo size](https://img.shields.io/github/repo-size/SrYorjs/Projecto-Reproductor-HTML-V2?color=38bdf8&style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/SrYorjs/Projecto-Reproductor-HTML-V2?color=ef4444&style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/SrYorjs/Projecto-Reproductor-HTML-V2?style=for-the-badge)
-
-Este repositorio alberga un ecosistema de reproductores web inmersivos diseñados con un enfoque en la **sincronización de audio avanzada** y el **diseño atmosférico**. No se trata simplemente de una interfaz de reproducción, sino de una curaduría digital donde cada track posee una arquitectura visual única, combinando estética retro-pixel con tecnologías web modernas.
-
----
-
-## 🚀 Visión del Proyecto
-
-El objetivo principal es transformar la escucha pasiva en una experiencia interactiva. Utilizando un motor de sincronización personalizado, el proyecto busca:
-* **Narrativa Visual:** Adaptar el entorno (colores, efectos de niebla y partículas) al tono emocional de la lírica.
-* **Arquitectura Open-Source:** Un proyecto escalable donde la comunidad propone el siguiente "Stage" visual mediante el análisis de nuevas pistas.
-* **Análisis Semántico:** Inclusión de *Meaning Boxes* que ofrecen una interpretación contextual de las composiciones.
+<p align="center">
+  <img src="https://img.shields.io/github/repo-size/SrYorjs/Projecto-Reproductor-HTML-V2?color=38bdf8&style=for-the-badge" />
+  <img src="https://img.shields.io/github/last-commit/SrYorjs/Projecto-Reproductor-HTML-V2?color=ef4444&style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/SrYorjs/Projecto-Reproductor-HTML-V2?style=for-the-badge" />
+</p>
 
 ---
 
-## ✨ Especificaciones Técnicas y Arquitectura
+## 🚀 Iniciar Reproducción (Live Demo)
 
-### 🛠️ Core Engine
-* **Time-Coded Lyrics Synchronization:** Algoritmo implementado en Vanilla JavaScript para el parseo de marcas de tiempo en formato `MM:SS.ss`, permitiendo una precisión de milisegundos en el renderizado de letras.
-* **Individual Word Wave Animation:** Sistema de inyección de nodos DOM dinámicos que envuelve cada palabra en `<span>` para aplicar transformaciones CSS independientes y secuenciales (Staggered Animations).
-* **Dynamic Fog & Flare System:** Motor gráfico ligero basado en gradientes radiales animados y filtros de desenfoque gaussiano (`backdrop-filter: blur()`) para simular profundidad y atmósfera.
+Para experimentar la interfaz interactiva y la sincronización en tiempo real, accede al despliegue oficial a través de GitHub Pages:
 
-### 🎨 Diseño y UI/UX
-* **Monocraft Typography:** Implementación de `@font-face` con la fuente `monocraft.ttf` para establecer una identidad visual pixelada coherente.
-* **Glassmorphism Effects:** Uso de transparencias `rgba` y bordes sutiles para lograr una jerarquía visual moderna sobre fondos dinámicos.
-* **State Management:** Controladores de estado para reproducción (`play`/`pause`), volumen y progreso con feedback visual inmediato en los sliders.
+<p align="center">
+  <a href="https://sryorjs.github.io/Projecto-Reproductor-HTML-V2/">
+    <img src="https://img.shields.io/badge/CLICK%20AQUÍ%20PARA%20REPRODUCIR-38bdf8?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  </a>
+</p>
+
+---
+
+## 📸 Visual Gallery & Stages
+
+| **Stage: Deep Ocean** | **Stage: Blood Red** | **Stage: Monochrome** |
+| :---: | :---: | :---: |
+| <img src="non.png" width="300" /> | <img src="heavy.png" width="300" /> | <img src="nobody.png" width="300" /> |
+| *No One Noticed* | *Heavy* | *Nobody New* |
+
+| **Stage: Golden Glow** | **Stage: Cyan Nostalgia** | **Stage: Crystal Clear** |
+| :---: | :---: | :---: |
+| <img src="yourface.png" width="300" /> | <img src="non.png" width="300" /> | <img src="non.png" width="300" /> |
+| *I Thought I Saw Your Face Today* | *Sienna* | *Lejos de Ti* |
+
+---
+
+## 📋 Visión del Proyecto
+
+Este ecosistema web transforma la escucha pasiva en una experiencia inmersiva mediante:
+* **Narrativa Visual:** Entornos dinámicos que adaptan su cromatismo y partículas al tono emocional de la pista.
+* **Arquitectura Open-Source:** Estructura escalable diseñada para integrar nuevos "Stages" mediante el análisis de líricas.
+* **Análisis Semántico:** Implementación de *Meaning Boxes* que ofrecen interpretaciones contextuales profundas de cada obra.
+
+---
+
+## ✨ Especificaciones Técnicas
+
+### 🛠️ Core Engine (JS-Sync)
+* **High-Precision Synchronization:** Algoritmo en Vanilla JavaScript para el parseo de marcas de tiempo `MM:SS.ss`, permitiendo un renderizado de letras con precisión sub-segundo.
+* **Staggered DOM Animations:** Inyección dinámica de nodos donde cada palabra es tratada como un objeto independiente para aplicar efectos de onda individual.
+* **Atmospheric Shaders (CSS):** Simulación de profundidad mediante gradientes radiales, `backdrop-filter: blur()` y capas de niebla animadas.
+
+### 🎨 Design & Experience
+* **Monocraft Typography:** Integración de `monocraft.ttf` vía `@font-face` para asegurar una estética pixel-art consistente.
+* **Glassmorphism UI:** Paneles con desenfoque de fondo y bordes de alta definición para una jerarquía visual moderna.
 
 ---
 
@@ -43,7 +68,7 @@ El objetivo principal es transformar la escucha pasiva en una experiencia intera
 
 ---
 
-## 🎵 Playlist & Stages (Orden Alfabético)
+## 🎵 Playlist Actual (Orden Alfabético)
 
 | Composición | Artista | Identidad Visual | Engine |
 | :--- | :--- | :--- | :--- |
@@ -56,25 +81,24 @@ El objetivo principal es transformar la escucha pasiva en una experiencia intera
 
 ---
 
-## 💬 Colaboración y Contribuciones
+## 💬 Colaboración
 
-Este proyecto es un organismo vivo. Si deseas contribuir con un nuevo diseño o una canción:
 1.  **Fork** el repositorio.
-2.  Crea un nuevo archivo `playerX.html`.
-3.  Desarrolla el esquema de colores basado en el sentimiento de la canción.
-4.  Realiza un **Pull Request** para integrar tu Stage a la colección oficial.
+2.  Desarrolla un nuevo `playerX.html`.
+3.  Define el esquema de color y partículas.
+4.  Realiza un **Pull Request** para revisión técnica.
 
 ---
 
 ## 👤 Perfil del Desarrollador
 
 **Juan Navarrete (SrYor)**
-* **Académico:** Estudiante de Ingeniería Industrial en Procesos Productivos (UTM).
-* **Technical Focus:** Automatización, Robótica (Arduino/PLC), Desarrollo Web (Node.js) y Diseño UI.
-* **Contacto:** [GitHub Profile](https://github.com/SrYorjs)
+* **Académico:** Ingeniería Industrial en Procesos Productivos (UTM).
+* **Focus:** Electronica, Automatización, Programacion, Robótica (Arduino/PLC) y Desarrollo Web.
+* **GitHub:** [@SrYorjs](https://github.com/SrYorjs)
 
 ---
 
-## 📄 Notas Legales y Créditos
+## 📄 Notas Legales
 
-Este software se distribuye bajo la licencia **MIT**. Todos los derechos de audio y arte visual pertenecen a sus respectivos creadores (The Marías, She & Him, Wisp). El propósito de este repositorio es estrictamente académico y de exploración técnica en diseño de interfaces.
+Distribuido bajo licencia **MIT**. Todos los derechos de audio y arte visual pertenecen a sus respectivos creadores. Proyecto con fines estrictamente académicos.
