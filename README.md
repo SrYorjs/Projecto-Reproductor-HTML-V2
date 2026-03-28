@@ -1,20 +1,21 @@
-# 🎧 Interactive Sonic Experience V2: A Community-Driven Music Player
+# 🎧 My Personal Sonic Universe V2: A High-Fidelity Interactive Lab
 
 <p align="center">
   <img src="https://img.shields.io/github/repo-size/SrYorjs/Projecto-Reproductor-HTML-V2?color=38bdf8&style=for-the-badge" />
   <img src="https://img.shields.io/github/last-commit/SrYorjs/Projecto-Reproductor-HTML-V2?color=ef4444&style=for-the-badge" />
   <img src="https://img.shields.io/github/stars/SrYorjs/Projecto-Reproductor-HTML-V2?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Project-Hobby-orange?style=for-the-badge" />
 </p>
 
 ---
 
-## 🚀 Iniciar Reproducción (Live Demo)
+## 🚀 Iniciar Reproducción (Live Deployment)
 
-Para experimentar la interfaz interactiva y la sincronización en tiempo real, accede al despliegue oficial a través de GitHub Pages:
+Experimenta la arquitectura visual y el motor de sincronización en tiempo real a través del despliegue oficial en GitHub Pages:
 
 <p align="center">
   <a href="https://sryorjs.github.io/Projecto-Reproductor-HTML-V2/">
-    <img src="https://img.shields.io/badge/CLICK%20AQUÍ%20PARA%20REPRODUCIR-38bdf8?style=for-the-badge&logo=googlechrome&logoColor=white" />
+    <img src="https://img.shields.io/badge/EJECUTAR%20INTERFAZ%20LIVE-38bdf8?style=for-the-badge&logo=googlechrome&logoColor=white" />
   </a>
 </p>
 
@@ -24,81 +25,79 @@ Para experimentar la interfaz interactiva y la sincronización en tiempo real, a
 
 | **Stage: Deep Ocean** | **Stage: Blood Red** | **Stage: Monochrome** |
 | :---: | :---: | :---: |
-| <img src="non.png" width="300" /> | <img src="heavy.png" width="300" /> | <img src="nobody.png" width="300" /> |
+| <img src="non.png" width="300" alt="Ocean Stage" /> | <img src="heavy.png" width="300" alt="Blood Stage" /> | <img src="nobody.png" width="300" alt="Mono Stage" /> |
 | *No One Noticed* | *Heavy* | *Nobody New* |
 
 | **Stage: Golden Glow** | **Stage: Cyan Nostalgia** | **Stage: Crystal Clear** |
 | :---: | :---: | :---: |
-| <img src="yourface.png" width="300" /> | <img src="non.png" width="300" /> | <img src="non.png" width="300" /> |
+| <img src="yourface.png" width="300" alt="Golden Stage" /> | <img src="non.png" width="300" alt="Cyan Stage" /> | <img src="non.png" width="300" alt="Clear Stage" /> |
 | *I Thought I Saw Your Face Today* | *Sienna* | *Lejos de Ti* |
 
 ---
 
-## 📋 Visión del Proyecto
+## 📋 Arquitectura y Concepto del Proyecto
 
-Este ecosistema web transforma la escucha pasiva en una experiencia inmersiva mediante:
-* **Narrativa Visual:** Entornos dinámicos que adaptan su cromatismo y partículas al tono emocional de la pista.
-* **Arquitectura Open-Source:** Estructura escalable diseñada para integrar nuevos "Stages" mediante el análisis de líricas.
-* **Análisis Semántico:** Implementación de *Meaning Boxes* que ofrecen interpretaciones contextuales profundas de cada obra.
+Este ecosistema web representa mi **laboratorio personal de desarrollo**, diseñado para trascender la reproducción de audio convencional mediante una experiencia sensorial inmersiva. El proyecto se fundamenta en tres pilares:
 
----
-
-## ✨ Especificaciones Técnicas
-
-### 🛠️ Core Engine (JS-Sync)
-* **High-Precision Synchronization:** Algoritmo en Vanilla JavaScript para el parseo de marcas de tiempo `MM:SS.ss`, permitiendo un renderizado de letras con precisión sub-segundo.
-* **Staggered DOM Animations:** Inyección dinámica de nodos donde cada palabra es tratada como un objeto independiente para aplicar efectos de onda individual.
-* **Atmospheric Shaders (CSS):** Simulación de profundidad mediante gradientes radiales, `backdrop-filter: blur()` y capas de niebla animadas.
-
-### 🎨 Design & Experience
-* **Monocraft Typography:** Integración de `monocraft.ttf` vía `@font-face` para asegurar una estética pixel-art consistente.
-* **Glassmorphism UI:** Paneles con desenfoque de fondo y bordes de alta definición para una jerarquía visual moderna.
+* **Narrativa Visual Paramétrica:** Los entornos (cromática, densidad de niebla y comportamiento de partículas) se codifican manualmente para reflejar el espectro emocional de cada track.
+* **Curación Musical Íntima:** Una selección privada de composiciones que sirven como banco de pruebas para el diseño de interfaces.
+* **Interpretación Semántica:** Implementación de *Meaning Boxes* que analizan la lírica y el contexto narrativo de las obras, permitiendo una conexión profunda entre el usuario y el autor.
 
 ---
 
-## 🛠️ Stack Tecnológico
+## ✨ Especificaciones Técnicas de Ingeniería
+
+### 🛠️ Core Engine (JS-Sync Engine)
+* **High-Precision Time-Coding:** Algoritmo optimizado en Vanilla JavaScript para el procesamiento de archivos LRC y marcas de tiempo en formato `MM:SS.ss`, garantizando una latencia imperceptible entre el audio y el renderizado de texto.
+* **Staggered DOM Injection:** Motor de manipulación de nodos que descompone cadenas de texto en fragmentos individuales (`<span>`), permitiendo animaciones de onda basadas en retardos calculados dinámicamente.
+* **Atmospheric Ray-Casting & Shaders:** Implementación de efectos visuales avanzados mediante gradientes radiales múltiples, `backdrop-filter: blur()` para simular refracción de luz y animaciones de partículas no deterministas.
+
+### 🎨 Diseño UI/UX Avanzado
+* **Atomic Design Principles:** Cada componente (sliders, botones, visualizadores) sigue una jerarquía visual estricta basada en el diseño atómico.
+* **Monocraft Identity:** Integración nativa de la fuente `monocraft.ttf` vía `@font-face` para asegurar una experiencia pixel-art fluida y responsiva.
+* **Glassmorphism Engine:** Uso intensivo de capas de vidrio digital con bordes de alta definición para maximizar la legibilidad sobre fondos complejos.
+
+---
+
+## 🛠️ Stack Tecnológico de Desarrollo
 
 <p align="left">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" />
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white" />
 </p>
 
 ---
 
-## 🎵 Playlist Actual (Orden Alfabético)
+## 🎵 Playlist & Stages (Estructura Alfabética)
 
-| Composición | Artista | Identidad Visual | Engine |
+| Composición | Artista | Identidad Visual Stage | Engine Status |
 | :--- | :--- | :--- | :--- |
-| **Heavy** | The Marías | Vampire / Dark Red | Apple Style Sync |
-| **I Thought I Saw Your Face Today** | She & Him | Golden / Glow | Apple Style Sync |
-| **Lejos de Ti** | The Marías | Ocean / Deep Blue | Apple Style Sync |
-| **No One Noticed** | The Marías | Deep Water / Flare | Apple Style Sync |
-| **Nobody New** | The Marías | Mono / Grayscale | Apple Style Sync |
-| **Sienna** | The Marías | Nostalgia / Cyan | Apple Style Sync |
-
----
-
-## 💬 Colaboración
-
-1.  **Fork** el repositorio.
-2.  Desarrolla un nuevo `playerX.html`.
-3.  Define el esquema de color y partículas.
-4.  Realiza un **Pull Request** para revisión técnica.
+| **Heavy** | The Marías | Vampire / Crimson Red | **Stable** |
+| **I Thought I Saw Your Face Today** | She & Him | Golden / Glow | **Stable** |
+| **Lejos de Ti** | The Marías | Ocean / Deep Blue | **Stable** |
+| **No One Noticed** | The Marías | Deep Water / Flare | **Stable** |
+| **Nobody New** | The Marías | Monochrome / Grayscale | **Stable** |
+| **Sienna** | The Marías | Nostalgia / Cyan | **Stable** |
 
 ---
 
 ## 👤 Perfil del Desarrollador
 
 **Juan Navarrete (SrYor)**
-* **Académico:** Ingeniería Industrial en Procesos Productivos (UTM).
-* **Focus:** Electronica, Automatización, Programacion, Robótica (Arduino/PLC) y Desarrollo Web.
+* **Académico:** Estudiante de Ingeniería Industrial en Procesos Productivos (UTM).
+* **Expertise:** Electrónica Analógica/Digital, Automatización Industrial, Robótica (Arduino/PLC) y Desarrollo Web.
+* **Visión:** Integración de sistemas industriales con interfaces de usuario modernas y funcionales.
 * **GitHub:** [@SrYorjs](https://github.com/SrYorjs)
 
 ---
 
-## 📄 Notas Legales
+## 📄 Notas Legales y Cumplimiento
 
-Distribuido bajo licencia **MIT**. Todos los derechos de audio y arte visual pertenecen a sus respectivos creadores. Proyecto con fines estrictamente académicos.
+Este software se distribuye bajo la licencia **MIT**. Todos los derechos de audio, composición y arte visual pertenecen exclusivamente a sus respectivos creadores (The Marías, She & Him). Este repositorio es un proyecto de **pasatiempo y exploración técnica** sin fines de lucro, diseñado para la apreciación artística y el aprendizaje de tecnologías web.
+
+---
+<p align="center">Made with ❤️ by SrYor</p>
