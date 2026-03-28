@@ -68,7 +68,7 @@ Este proyecto es un organismo vivo. Si deseas contribuir con un nuevo diseño o 
 
 ## 👤 Perfil del Desarrollador
 
-**Jose Juan Navarrete (SrYor)**
+**Juan Navarrete (SrYor)**
 * **Académico:** Estudiante de Ingeniería Industrial en Procesos Productivos (UTM).
 * **Technical Focus:** Automatización, Robótica (Arduino/PLC), Desarrollo Web (Node.js) y Diseño UI.
 * **Contacto:** [GitHub Profile](https://github.com/SrYorjs)
