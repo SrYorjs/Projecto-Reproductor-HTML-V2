@@ -5,20 +5,24 @@
         <meta charset="UTF-8">
         <title>The Marías - Sienna (Apple Style)</title>
         <style>
+            @font-face {
+                font-family: 'Monocraft';
+                src: url('monocraft.ttf') format('truetype');
+            }
+
             :root {
                 --deep-ocean: #010b14;
                 --water-blue: #38bdf8;
                 --glass: rgba(255, 255, 255, 0.04);
                 --glow: rgba(56, 189, 248, 0.3);
                 --accent-gray: #1e293b;
-                /* Palabras apagadas en tono azul oscuro */
                 --fog-color: rgba(56, 189, 248, 0.08);
                 --lens-flare: rgba(56, 189, 248, 0.05);
             }
 
             body {
                 margin: 0;
-                font-family: 'Segoe UI', sans-serif;
+                font-family: 'Monocraft', monospace;
                 background: radial-gradient(circle at 50% 50%, #0a1e35 0%, var(--deep-ocean) 100%);
                 color: white;
                 display: flex;
@@ -31,7 +35,6 @@
                 position: relative;
             }
 
-            /* 🌊 CAPAS ATMOSFÉRICAS */
             .fog-layer {
                 position: fixed;
                 top: -50%;
@@ -171,7 +174,6 @@
                 -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
             }
 
-            /* ✨ ESTILO APPLE MUSIC POR PALABRA */
             .line {
                 padding: 22px 0;
                 transition: all 0.6s ease;
@@ -181,17 +183,18 @@
             }
 
             .en {
-                font-size: 1.6rem;
+                font-size: 1.7rem;
                 font-weight: 700;
                 display: block;
-                line-height: 1.3;
+                line-height: 1.4;
                 color: var(--accent-gray);
+                letter-spacing: -1px;
             }
 
             .word {
                 display: inline-block;
                 transition: color 0.4s ease, text-shadow 0.4s ease;
-                margin-right: 6px;
+                margin-right: 8px;
             }
 
             .word.highlight {
@@ -213,7 +216,7 @@
             }
 
             .es {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 font-weight: 400;
                 opacity: 0.6;
                 display: block;

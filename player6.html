@@ -5,6 +5,11 @@
         <meta charset="UTF-8">
         <title>She & Him - I Thought I Saw Your Face Today</title>
         <style>
+            @font-face {
+                font-family: 'Monocraft';
+                src: url('monocraft.ttf') format('truetype');
+            }
+
             :root {
                 --pure-black: #0d0d05;
                 --soft-white: #fffbeb;
@@ -18,7 +23,7 @@
 
             body {
                 margin: 0;
-                font-family: 'Segoe UI', sans-serif;
+                font-family: 'Monocraft', monospace;
                 background-color: var(--pure-black);
                 color: var(--soft-white);
                 display: flex;
@@ -179,17 +184,18 @@
             }
 
             .eng {
-                font-size: 1.6rem;
+                font-size: 1.7rem;
                 font-weight: 700;
                 display: block;
-                line-height: 1.3;
+                line-height: 1.4;
                 color: var(--accent-gray);
+                letter-spacing: -1px;
             }
 
             .word {
                 display: inline-block;
                 transition: color 0.4s ease, text-shadow 0.4s ease;
-                margin-right: 6px;
+                margin-right: 8px;
             }
 
             .word.highlight {
@@ -211,7 +217,7 @@
             }
 
             .esp {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 font-weight: 400;
                 opacity: 0.6;
                 display: block;
@@ -357,7 +363,7 @@
                 <p>A medida que la canción avanza, el narrador reflexiona sobre un lugar que una vez consideró celestial, pero que ahora se ha convertido en un monumento en su mente. Esta transformación de un paraíso a un recuerdo distante refleja la naturaleza cambiante de las emociones y la percepción del tiempo. La mención de los coches y las autopistas que lo alejan de este lugar añade una capa de movimiento y distancia, simbolizando el paso del tiempo y la inevitable separación de lo que una vez fue querido.</p>
                 <p>La canción también toca temas de belleza efímera y la soledad. La línea 'I somehow see what's beautiful in things that are ephemeral' sugiere una apreciación de la transitoriedad de la vida y el amor. La pregunta 'I'm my only friend, am I?' resalta un sentimiento de aislamiento, donde el narrador se encuentra solo con sus recuerdos y reflexiones. En última instancia, es una meditación sobre la memoria, el amor y la aceptación de la naturaleza pasajera de las cosas.</p>
                 <p style="margin-top:25px; font-weight:bold; color:var(--accent-yellow);">Escrita por: Zooey Deschanel.</p>
-                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3> 
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
             </div>
         </div>
 
@@ -373,15 +379,13 @@
             const bubbleBox = document.getElementById('bubbleBox');
             let currentActiveLine = null;
 
-            
             function parseTime(timeStr) {
                 if (!timeStr) return 0;
                 const parts = timeStr.split(':');
-                if (parts.length < 2) return parseFloat(timeStr); 
+                if (parts.length < 2) return parseFloat(timeStr);
                 return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
             }
 
-            
             function setupAppleLyrics() {
                 const lines = document.querySelectorAll('.line');
                 lines.forEach(line => {
@@ -414,7 +418,7 @@
 
                 const lines = document.querySelectorAll('.line');
                 lines.forEach((line, i) => {
-                    
+
                     const startTime = parseTime(line.dataset.t);
                     const nextLine = lines[i + 1];
                     const endTime = nextLine ? parseTime(nextLine.dataset.t) : startTime + 4;
@@ -430,12 +434,10 @@
                             });
                         }
 
-                        
                         const words = line.querySelectorAll('.word');
                         const progressInLine = t - startTime;
                         const duration = endTime - startTime;
 
-                        
                         const wordsToHighlight = Math.floor((progressInLine / duration) * words.length * 1.5);
 
                         words.forEach((word, idx) => {

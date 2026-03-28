@@ -1,408 +1,470 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <title>The Marías - Nobody New (Extended Noir)</title>
-    <style>
-        :root {
-            --pure-black: #000000;
-            --soft-white: #ffffff; 
-            --accent-gray: #4a4a4a; 
-            --glass: rgba(255, 255, 255, 0.04);
-            --glow: rgba(255, 255, 255, 0.25);
-            --fog-color: rgba(255, 255, 255, 0.08);
-            --lens-flare: rgba(255, 255, 255, 0.05);
-        }
+    <head>
+        <meta charset="UTF-8">
+        <title>The Marías - Nobody New (Extended Noir)</title>
+        <style>
+            @font-face {
+                font-family: 'Monocraft';
+                src: url('monocraft.ttf') format('truetype');
+            }
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--pure-black);
-            color: var(--soft-white);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 50px 0;
-            position: relative;
-        }
+            :root {
+                --pure-black: #000000;
+                --soft-white: #ffffff;
+                --accent-gray: #4a4a4a;
+                --glass: rgba(255, 255, 255, 0.04);
+                --glow: rgba(255, 255, 255, 0.25);
+                --fog-color: rgba(255, 255, 255, 0.08);
+                --lens-flare: rgba(255, 255, 255, 0.05);
+            }
 
-        .fog-layer {
-            position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: 
-                radial-gradient(circle at 20% 30%, var(--fog-color) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, var(--fog-color) 0%, transparent 50%),
-                radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 40%);
-            animation: fogDrift 25s ease-in-out infinite;
-            z-index: -2;
-            filter: blur(100px);
-            opacity: 0.8;
-        }
+            body {
+                margin: 0;
+                font-family: 'Monocraft', monospace;
+                background-color: var(--pure-black);
+                color: var(--soft-white);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 50px 0;
+                position: relative;
+            }
 
-        .lens-flare {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--lens-flare) 0%, transparent 70%);
-            z-index: -1;
-            pointer-events: none;
-            mix-blend-mode: screen;
-        }
+            .fog-layer {
+                position: fixed;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background:
+                    radial-gradient(circle at 20% 30%, var(--fog-color) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, var(--fog-color) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+                animation: fogDrift 25s ease-in-out infinite;
+                z-index: -2;
+                filter: blur(100px);
+                opacity: 0.8;
+            }
 
-        @keyframes fogDrift {
-            0%, 100% { transform: translate(-5%, -5%) scale(1); }
-            50% { transform: translate(5%, 5%) scale(1.1) rotate(2deg); }
-        }
+            .lens-flare {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--lens-flare) 0%, transparent 70%);
+                z-index: -1;
+                pointer-events: none;
+                mix-blend-mode: screen;
+            }
 
-        .bubble {
-            position: fixed;
-            bottom: -100px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: rise linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
+            @keyframes fogDrift {
 
-        @keyframes rise {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.4; }
-            100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-        }
+                0%,
+                100% {
+                    transform: translate(-5%, -5%) scale(1);
+                }
 
-        .main-container {
-            display: flex;
-            width: 92%;
-            max-width: 1100px;
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border-radius: 40px;
-            padding: 50px;
-            gap: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
-            z-index: 10;
-            margin-bottom: 60px;
-            box-sizing: border-box;
-        }
+                50% {
+                    transform: translate(5%, 5%) scale(1.1) rotate(2deg);
+                }
+            }
 
-        .player-left {
-            flex: 0 0 350px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            padding-right: 40px;
-        }
+            .bubble {
+                position: fixed;
+                bottom: -100px;
+                background: rgba(255, 255, 255, 0.07);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                animation: rise linear infinite;
+                pointer-events: none;
+                z-index: 1;
+            }
 
-        .cover {
-            width: 300px; height: 300px;
-            border-radius: 20px;
-            object-fit: cover;
-            margin-bottom: 25px;
-            box-shadow: 0 0 50px var(--glow);
-            filter: grayscale(1) contrast(1.1);
-        }
+            @keyframes rise {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 0;
+                }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%; height: 6px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            outline: none; cursor: pointer;
-        }
+                50% {
+                    opacity: 0.4;
+                }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background: white;
-            box-shadow: 0 0 15px white;
-            transition: 0.3s ease; margin-top: -5px;
-        }
+                100% {
+                    transform: translateY(-120vh) scale(1.5);
+                    opacity: 0;
+                }
+            }
 
-        .player-right {
-            flex: 1;
-            height: 480px;
-            overflow: hidden;
-            position: relative;
-        }
+            .main-container {
+                display: flex;
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(30px);
+                border-radius: 40px;
+                padding: 50px;
+                gap: 40px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
+                z-index: 10;
+                margin-bottom: 60px;
+                box-sizing: border-box;
+            }
 
-        .lyrics-scroll {
-            height: 100%;
-            overflow-y: scroll;
-            scrollbar-width: none;
-            padding: 0 10px;
-            box-sizing: border-box;
-            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-        }
+            .player-left {
+                flex: 0 0 350px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding-right: 40px;
+            }
 
-        .line {
-            padding: 22px 0;
-            transition: all 0.6s ease;
-            cursor: pointer;
-            opacity: 0.2;
-            max-width: 100%;
-        }
+            .cover {
+                width: 300px;
+                height: 300px;
+                border-radius: 20px;
+                object-fit: cover;
+                margin-bottom: 25px;
+                box-shadow: 0 0 50px var(--glow);
+                filter: grayscale(1) contrast(1.1);
+            }
 
-        .eng {
-            font-size: 1.6rem;
-            font-weight: 700;
-            display: block;
-            line-height: 1.3;
-            color: var(--accent-gray);
-        }
+            input[type="range"] {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 10px;
+                outline: none;
+                cursor: pointer;
+            }
 
-        
-        .word {
-            display: inline-block;
-            transition: color 0.4s ease, text-shadow 0.4s ease;
-            margin-right: 6px;
-        }
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: white;
+                box-shadow: 0 0 15px white;
+                transition: 0.3s ease;
+                margin-top: -5px;
+            }
 
-        .word.highlight {
-            color: var(--soft-white);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            animation: individualWave 1.4s ease-in-out infinite;
-        }
+            .player-right {
+                flex: 1;
+                height: 480px;
+                overflow: hidden;
+                position: relative;
+            }
 
-        @keyframes individualWave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+            .lyrics-scroll {
+                height: 100%;
+                overflow-y: scroll;
+                scrollbar-width: none;
+                padding: 0 10px;
+                box-sizing: border-box;
+                mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+                -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            }
 
-        .esp {
-            font-size: 0.95rem;
-            font-weight: 400;
-            opacity: 0.6;
-            display: block;
-            margin-top: 8px;
-        }
+            .line {
+                padding: 22px 0;
+                transition: all 0.6s ease;
+                cursor: pointer;
+                opacity: 0.2;
+                max-width: 100%;
+            }
 
-        .line.active { opacity: 1; transform: translateX(15px); }
+            .eng {
+                font-size: 1.7rem;
+                font-weight: 700;
+                display: block;
+                line-height: 1.4;
+                color: var(--accent-gray);
+                letter-spacing: -1px;
+            }
 
-        .meaning-box {
-            width: 92%;
-            max-width: 1100px;
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 35px;
-            padding: 50px;
-            box-sizing: border-box;
-            z-index: 10;
-            margin-bottom: 80px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-        }
+            .word {
+                display: inline-block;
+                transition: color 0.4s ease, text-shadow 0.4s ease;
+                margin-right: 8px;
+            }
 
-        .meaning-box h2 {
-            color: var(--soft-white);
-            margin-top: 0;
-            font-size: 1.7rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 20px;
-        }
+            .word.highlight {
+                color: var(--soft-white);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+                animation: individualWave 1.4s ease-in-out infinite;
+            }
 
-        .meaning-content {
-            line-height: 1.9;
-            color: #e0e0e0;
-            font-size: 1.15rem;
-            text-align: justify;
-        }
+            @keyframes individualWave {
 
-        .play-btn {
-            width: 75px; height: 75px;
-            background: white; color: black;
-            border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            cursor: pointer; font-size: 26px; border: none;
-            transition: 0.5s;
-        }
-        .play-btn:hover { transform: scale(1.1); }
-    </style>
-</head>
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
 
-<body>
-    <div class="fog-layer"></div>
-    <div class="lens-flare" id="flare"></div>
-    <div id="bubbleBox"></div>
+                50% {
+                    transform: translateY(-8px);
+                }
+            }
 
-    <div class="main-container">
-        <div class="player-left">
-            <img src="nobody.png" class="cover">
-            <div style="text-align:center;">
-                <h2 style="margin:0; letter-spacing: 1px;">Nobody New</h2>
-                <p style="margin:5px 0 25px; opacity:0.5; letter-spacing:5px; font-size:0.75rem;">THE MARÍAS</p>
+            .esp {
+                font-size: 0.9rem;
+                font-weight: 400;
+                opacity: 0.6;
+                display: block;
+                margin-top: 8px;
+            }
+
+            .line.active {
+                opacity: 1;
+                transform: translateX(15px);
+            }
+
+            .meaning-box {
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(30px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 35px;
+                padding: 50px;
+                box-sizing: border-box;
+                z-index: 10;
+                margin-bottom: 80px;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            }
+
+            .meaning-box h2 {
+                color: var(--soft-white);
+                margin-top: 0;
+                font-size: 1.7rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                padding-bottom: 20px;
+            }
+
+            .meaning-content {
+                line-height: 1.9;
+                color: #e0e0e0;
+                font-size: 1.15rem;
+                text-align: justify;
+            }
+
+            .play-btn {
+                width: 75px;
+                height: 75px;
+                background: white;
+                color: black;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 26px;
+                border: none;
+                transition: 0.5s;
+            }
+
+            .play-btn:hover {
+                transform: scale(1.1);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="fog-layer"></div>
+        <div class="lens-flare" id="flare"></div>
+        <div id="bubbleBox"></div>
+
+        <div class="main-container">
+            <div class="player-left">
+                <img src="nobody.png" class="cover">
+                <div style="text-align:center;">
+                    <h2 style="margin:0; letter-spacing: 1px;">Nobody New</h2>
+                    <p style="margin:5px 0 25px; opacity:0.5; letter-spacing:5px; font-size:0.75rem;">THE MARÍAS</p>
+                </div>
+                <input type="range" id="progress" value="0">
+                <div style="display:flex; justify-content:space-between; width:100%; opacity:0.4; font-size:12px; margin-top:10px;">
+                    <span id="curTime">0:00</span><span>3:35</span>
+                </div>
+                <div style="margin:35px 0; display:flex; gap:35px; align-items:center;">
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="18" style="filter:invert(1)"></button>
+                    <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="18" style="filter:invert(1)"></button>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; width:85%;">
+                    <span style="filter: invert(1); opacity: 0.6;">🔉</span>
+                    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+                </div>
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
             </div>
-            <input type="range" id="progress" value="0">
-            <div style="display:flex; justify-content:space-between; width:100%; opacity:0.4; font-size:12px; margin-top:10px;">
-                <span id="curTime">0:00</span><span>3:35</span>
+
+            <div class="player-right">
+                <div class="lyrics-scroll" id="lrcContainer">
+                    <div class="line" data-t="24.92"><span class="eng">Every day, I wake up missing you</span><span class="esp">Cada día, me despierto extrañándote</span></div>
+                    <div class="line" data-t="29.60"><span class="eng">Wishing that I were to be</span><span class="esp">Deseando estar</span></div>
+                    <div class="line" data-t="32.64"><span class="eng">In your bed, by your side</span><span class="esp">En tu cama, a tu lado</span></div>
+                    <div class="line" data-t="35.76"><span class="eng">Tell me that you'll wait for me, patiently</span><span class="esp">Dime que me esperarás con paciencia</span></div>
+                    <div class="line" data-t="40.42"><span class="eng">No one else taking all my time</span><span class="esp">No hay nadie más quitándome el tiempo</span></div>
+                    <div class="line" data-t="45.05"><span class="eng">Holding out for you</span><span class="esp">Esperando por ti</span></div>
+                    <div class="line" data-t="48.20"><span class="eng">Baby, I promise</span><span class="esp">Cariño, te lo prometo</span></div>
+                    <div class="line" data-t="54.06"><span class="eng">There's nobody new</span><span class="esp">No hay nadie nuevo</span></div>
+                    <div class="line" data-t="60.70"><span class="eng">I'm being honest</span><span class="esp">Te soy sincera</span></div>
+                    <div class="line" data-t="66.45"><span class="eng">There's no one like you</span><span class="esp">No hay nadie como tú</span></div>
+                    <div class="line" data-t="73.12"><span class="eng">Baby, I promise (I could tell you, but it wouldn't be right)</span><span class="esp">Cariño, te lo prometo (podría decírtelo, pero no estaría bien)</span></div>
+                    <div class="line" data-t="79.06"><span class="eng">Nadie como tú (We cried together when we said our goodbyes)</span><span class="esp">Nadie como tú (lloramos juntos cuando nos despedimos)</span></div>
+                    <div class="line" data-t="84.85"><span class="eng">Yes, I'm being honest (I'd like to hold you, God, I wish we could talk)</span><span class="esp">Sí, te soy sincera (quisiera abrazarte, Dios mío, ojalá pudiéramos hablar)</span></div>
+                    <div class="line" data-t="91.50"><span class="eng">There's no one like you (Down by the water where we used to get lost)</span><span class="esp">No hay nadie como tú (allá junto al agua, donde solíamos perdernos)</span></div>
+                    <div class="line" data-t="99.65"><span class="eng">Aquí estoy otra vez sin tu amor</span><span class="esp">Aquí estoy otra vez sin tu amor</span></div>
+                    <div class="line" data-t="104.23"><span class="eng">Siento que me cuesta ya respirar</span><span class="esp">Siento que me cuesta ya respirar</span></div>
+                    <div class="line" data-t="108.95"><span class="eng">¿Qué más da? Si no puedo olvidarme de ti</span><span class="esp">¿Qué más da, si no puedo olvidarme de ti?</span></div>
+                    <div class="line" data-t="115.27"><span class="eng">Pido a Dios que me haga feliz</span><span class="esp">Pido a Dios que me haga feliz</span></div>
+                    <div class="line" data-t="119.83"><span class="eng">Sin tenerte a ti</span><span class="esp">Sin tenerte a ti</span></div>
+                    <div class="line" data-t="123.05"><span class="eng">Baby, I promise</span><span class="esp">Cariño, te lo prometo</span></div>
+                    <div class="line" data-t="128.90"><span class="eng">There's nobody new</span><span class="esp">No hay nadie nuevo</span></div>
+                    <div class="line" data-t="135.63"><span class="eng">I'm being honest</span><span class="esp">Te soy sincera</span></div>
+                    <div class="line" data-t="141.28"><span class="eng">There's no one like you</span><span class="esp">No hay nadie como tú</span></div>
+                    <div class="line" data-t="147.90"><span class="eng">Baby, I promise (I could tell you, but it wouldn't be right)</span><span class="esp">Cariño, te lo prometo (podría decírtelo, pero no estaría bien)</span></div>
+                    <div class="line" data-t="153.80"><span class="eng">Nadie como tú (We cried together when we said our goodbyes)</span><span class="esp">Nadie como tú (lloramos juntos cuando nos despedimos)</span></div>
+                    <div class="line" data-t="159.65"><span class="eng">Yes, I'm being honest (I'd like to hold you, God, I wish we could talk)</span><span class="esp">Sí, te soy sincera (quisiera abrazarte, Dios mío, ojalá pudiéramos hablar)</span></div>
+                    <div class="line" data-t="166.25"><span class="eng">There's no one like you (Down by the water where we used to get lost)</span><span class="esp">No hay nadie como tú (allá junto al agua, donde solíamos perdernos)</span></div>
+                </div>
             </div>
-            <div style="margin:35px 0; display:flex; gap:35px; align-items:center;">
-                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="18" style="filter:invert(1)"></button>
-                <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
-                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="18" style="filter:invert(1)"></button>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px; width:85%;">
-                <span style="filter: invert(1); opacity: 0.6;">🔉</span>
-                <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
-            </div>
-            <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
         </div>
 
-        <div class="player-right">
-            <div class="lyrics-scroll" id="lrcContainer">
-                <div class="line" data-t="24.92"><span class="eng">Every day, I wake up missing you</span><span class="esp">Cada día, me despierto extrañándote</span></div>
-                <div class="line" data-t="29.60"><span class="eng">Wishing that I were to be</span><span class="esp">Deseando estar</span></div>
-                <div class="line" data-t="32.64"><span class="eng">In your bed, by your side</span><span class="esp">En tu cama, a tu lado</span></div>
-                <div class="line" data-t="35.76"><span class="eng">Tell me that you'll wait for me, patiently</span><span class="esp">Dime que me esperarás con paciencia</span></div>
-                <div class="line" data-t="40.42"><span class="eng">No one else taking all my time</span><span class="esp">No hay nadie más quitándome el tiempo</span></div>
-                <div class="line" data-t="45.05"><span class="eng">Holding out for you</span><span class="esp">Esperando por ti</span></div>
-                <div class="line" data-t="48.20"><span class="eng">Baby, I promise</span><span class="esp">Cariño, te lo prometo</span></div>
-                <div class="line" data-t="54.06"><span class="eng">There's nobody new</span><span class="esp">No hay nadie nuevo</span></div>
-                <div class="line" data-t="60.70"><span class="eng">I'm being honest</span><span class="esp">Te soy sincera</span></div>
-                <div class="line" data-t="66.45"><span class="eng">There's no one like you</span><span class="esp">No hay nadie como tú</span></div>
-                <div class="line" data-t="73.12"><span class="eng">Baby, I promise (I could tell you, but it wouldn't be right)</span><span class="esp">Cariño, te lo prometo (podría decírtelo, pero no estaría bien)</span></div>
-                <div class="line" data-t="79.06"><span class="eng">Nadie como tú (We cried together when we said our goodbyes)</span><span class="esp">Nadie como tú (lloramos juntos cuando nos despedimos)</span></div>
-                <div class="line" data-t="84.85"><span class="eng">Yes, I'm being honest (I'd like to hold you, God, I wish we could talk)</span><span class="esp">Sí, te soy sincera (quisiera abrazarte, Dios mío, ojalá pudiéramos hablar)</span></div>
-                <div class="line" data-t="91.50"><span class="eng">There's no one like you (Down by the water where we used to get lost)</span><span class="esp">No hay nadie como tú (allá junto al agua, donde solíamos perdernos)</span></div>
-                <div class="line" data-t="99.65"><span class="eng">Aquí estoy otra vez sin tu amor</span><span class="esp">Aquí estoy otra vez sin tu amor</span></div>
-                <div class="line" data-t="104.23"><span class="eng">Siento que me cuesta ya respirar</span><span class="esp">Siento que me cuesta ya respirar</span></div>
-                <div class="line" data-t="108.95"><span class="eng">¿Qué más da? Si no puedo olvidarme de ti</span><span class="esp">¿Qué más da, si no puedo olvidarme de ti?</span></div>
-                <div class="line" data-t="115.27"><span class="eng">Pido a Dios que me haga feliz</span><span class="esp">Pido a Dios que me haga feliz</span></div>
-                <div class="line" data-t="119.83"><span class="eng">Sin tenerte a ti</span><span class="esp">Sin tenerte a ti</span></div>
-                <div class="line" data-t="123.05"><span class="eng">Baby, I promise</span><span class="esp">Cariño, te lo prometo</span></div>
-                <div class="line" data-t="128.90"><span class="eng">There's nobody new</span><span class="esp">No hay nadie nuevo</span></div>
-                <div class="line" data-t="135.63"><span class="eng">I'm being honest</span><span class="esp">Te soy sincera</span></div>
-                <div class="line" data-t="141.28"><span class="eng">There's no one like you</span><span class="esp">No hay nadie como tú</span></div>
-                <div class="line" data-t="147.90"><span class="eng">Baby, I promise (I could tell you, but it wouldn't be right)</span><span class="esp">Cariño, te lo prometo (podría decírtelo, pero no estaría bien)</span></div>
-                <div class="line" data-t="153.80"><span class="eng">Nadie como tú (We cried together when we said our goodbyes)</span><span class="esp">Nadie como tú (lloramos juntos cuando nos despedimos)</span></div>
-                <div class="line" data-t="159.65"><span class="eng">Yes, I'm being honest (I'd like to hold you, God, I wish we could talk)</span><span class="esp">Sí, te soy sincera (quisiera abrazarte, Dios mío, ojalá pudiéramos hablar)</span></div>
-                <div class="line" data-t="166.25"><span class="eng">There's no one like you (Down by the water where we used to get lost)</span><span class="esp">No hay nadie como tú (allá junto al agua, donde solíamos perdernos)</span></div>
+        <div class="meaning-box">
+            <h2>La Nostalgia de un Amor Inolvidable en 'Nobody New'</h2>
+            <div class="meaning-content">
+                <p>La canción "Nobody New" de The Marías es una conmovedora exploración de la nostalgia y el anhelo por un amor pasado. Desde el primer verso, la letra transmite un profundo sentimiento de pérdida y deseo de estar junto a la persona amada. La protagonista se despierta cada día extrañando a su pareja, deseando poder compartir su cama y su vida con ella. Este sentimiento de ausencia se intensifica con la promesa de que no hay nadie nuevo en su vida, reafirmando la singularidad e insustituibilidad de su amor.</p>
+                <p>La letra también refleja una lucha interna entre la aceptación de la separación y el deseo de reunirse. La protagonista expresa su dificultad para respirar sin el amor de su pareja, rogando por felicidad a pesar de la distancia. Esta dualidad se manifiesta en la mezcla de inglés y español, lo que añade una capa de intimidad y autenticidad a la canción. La repetición de la promesa de que no hay nadie como su amor perdido subraya la profundidad de su conexión emocional y el vacío que ha dejado su ausencia.</p>
+                <p>Musicalmente, The Marías combinan elementos de dream pop y soul, creando una atmósfera etérea que complementa la melancolía de la letra. La voz suave y envolvente de la vocalista, junto con los acordes delicados, transportan al oyente a un lugar de introspección y añoranza. La canción evoca imágenes de momentos compartidos, como perderse juntos cerca del agua, lo que refuerza el tema de los recuerdos compartidos y la tristeza de su pérdida. "Nobody New" es un testimonio de la complejidad del amor y la dificultad de seguir adelante cuando alguien especial ha dejado una marca imborrable en el corazón.</p>
+                <p style="margin-top:25px; font-weight:bold; color:var(--accent-gray);">Escrita por: Benny Blanco, Josh Conway, Maria Zardoya.</p>
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
             </div>
         </div>
-    </div>
 
-    <div class="meaning-box">
-        <h2>La Nostalgia de un Amor Inolvidable en 'Nobody New'</h2>
-        <div class="meaning-content">
-            <p>La canción "Nobody New" de The Marías es una conmovedora exploración de la nostalgia y el anhelo por un amor pasado. Desde el primer verso, la letra transmite un profundo sentimiento de pérdida y deseo de estar junto a la persona amada. La protagonista se despierta cada día extrañando a su pareja, deseando poder compartir su cama y su vida con ella. Este sentimiento de ausencia se intensifica con la promesa de que no hay nadie nuevo en su vida, reafirmando la singularidad e insustituibilidad de su amor.</p>
-            <p>La letra también refleja una lucha interna entre la aceptación de la separación y el deseo de reunirse. La protagonista expresa su dificultad para respirar sin el amor de su pareja, rogando por felicidad a pesar de la distancia. Esta dualidad se manifiesta en la mezcla de inglés y español, lo que añade una capa de intimidad y autenticidad a la canción. La repetición de la promesa de que no hay nadie como su amor perdido subraya la profundidad de su conexión emocional y el vacío que ha dejado su ausencia.</p>
-            <p>Musicalmente, The Marías combinan elementos de dream pop y soul, creando una atmósfera etérea que complementa la melancolía de la letra. La voz suave y envolvente de la vocalista, junto con los acordes delicados, transportan al oyente a un lugar de introspección y añoranza. La canción evoca imágenes de momentos compartidos, como perderse juntos cerca del agua, lo que refuerza el tema de los recuerdos compartidos y la tristeza de su pérdida. "Nobody New" es un testimonio de la complejidad del amor y la dificultad de seguir adelante cuando alguien especial ha dejado una marca imborrable en el corazón.</p>
-            <p style="margin-top:25px; font-weight:bold; color:var(--accent-gray);">Escrita por: Benny Blanco, Josh Conway, Maria Zardoya.</p>
-            <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
-        </div>
-    </div>
+        <audio id="audio" src="nobody.mp3" preload="auto"></audio>
 
-    <audio id="audio" src="nobody.mp3" preload="auto"></audio>
+        <script>
+            const audio = document.getElementById('audio');
+            const container = document.getElementById('lrcContainer');
+            const flare = document.getElementById('flare');
+            const playBtn = document.getElementById('playBtn');
+            const progress = document.getElementById('progress');
+            const curTimeText = document.getElementById('curTime');
+            const bubbleBox = document.getElementById('bubbleBox');
+            let currentActiveLine = null;
 
-    <script>
-        const audio = document.getElementById('audio');
-        const container = document.getElementById('lrcContainer');
-        const flare = document.getElementById('flare');
-        const playBtn = document.getElementById('playBtn');
-        const progress = document.getElementById('progress');
-        const curTimeText = document.getElementById('curTime');
-        const bubbleBox = document.getElementById('bubbleBox');
-        let currentActiveLine = null;
+            function setupAppleLyrics() {
+                const lines = document.querySelectorAll('.line');
+                lines.forEach(line => {
+                    const engSpan = line.querySelector('.eng');
+                    const originalText = engSpan.textContent;
+                    engSpan.innerHTML = '';
 
-        
-        function setupAppleLyrics() {
-            const lines = document.querySelectorAll('.line');
-            lines.forEach(line => {
-                const engSpan = line.querySelector('.eng');
-                const originalText = engSpan.textContent;
-                engSpan.innerHTML = ''; 
-                
-                originalText.split(' ').forEach(word => {
-                    const span = document.createElement('span');
-                    span.className = 'word';
-                    span.textContent = word;
-                    engSpan.appendChild(span);
-                    engSpan.appendChild(document.createTextNode(' '));
-                });
-            });
-        }
-        setupAppleLyrics();
-
-        function toggle() { audio.paused ? audio.play() : audio.pause(); }
-        audio.addEventListener('play', () => playBtn.innerHTML = "❚❚");
-        audio.addEventListener('pause', () => playBtn.innerHTML = "►");
-
-        audio.addEventListener('timeupdate', () => {
-            const t = audio.currentTime;
-            if (audio.duration) progress.value = (t / audio.duration) * 100;
-            curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
-
-            const lines = document.querySelectorAll('.line');
-            lines.forEach((line, i) => {
-                const startTime = parseFloat(line.dataset.t);
-                const nextLine = lines[i + 1];
-                const endTime = nextLine ? parseFloat(nextLine.dataset.t) : startTime + 4;
-
-                if (t >= startTime && t < endTime) {
-                    if (currentActiveLine !== line) {
-                        if (currentActiveLine) currentActiveLine.classList.remove('active');
-                        currentActiveLine = line;
-                        line.classList.add('active');
-                        container.scrollTo({ top: line.offsetTop - container.offsetTop - 180, behavior: 'smooth' });
-                    }
-
-                    const words = line.querySelectorAll('.word');
-                    const progressInLine = t - startTime;
-                    const duration = endTime - startTime;
-                    const wordsToHighlight = Math.floor((progressInLine / duration) * words.length * 1.5);
-
-                    words.forEach((word, idx) => {
-                        if (idx <= wordsToHighlight) {
-                            word.classList.add('highlight');
-                            word.style.animationDelay = (idx * 0.05) + 's';
-                        } else {
-                            word.classList.remove('highlight');
-                        }
+                    originalText.split(' ').forEach(word => {
+                        const span = document.createElement('span');
+                        span.className = 'word';
+                        span.textContent = word;
+                        engSpan.appendChild(span);
+                        engSpan.appendChild(document.createTextNode(' '));
                     });
-                } else {
-                    line.classList.remove('active');
-                    line.querySelectorAll('.word').forEach(w => w.classList.remove('highlight'));
+                });
+            }
+            setupAppleLyrics();
+
+            function toggle() {
+                audio.paused ? audio.play() : audio.pause();
+            }
+            audio.addEventListener('play', () => playBtn.innerHTML = "❚❚");
+            audio.addEventListener('pause', () => playBtn.innerHTML = "►");
+
+            audio.addEventListener('timeupdate', () => {
+                const t = audio.currentTime;
+                if (audio.duration) progress.value = (t / audio.duration) * 100;
+                curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+
+                const lines = document.querySelectorAll('.line');
+                lines.forEach((line, i) => {
+                    const startTime = parseFloat(line.dataset.t);
+                    const nextLine = lines[i + 1];
+                    const endTime = nextLine ? parseFloat(nextLine.dataset.t) : startTime + 4;
+
+                    if (t >= startTime && t < endTime) {
+                        if (currentActiveLine !== line) {
+                            if (currentActiveLine) currentActiveLine.classList.remove('active');
+                            currentActiveLine = line;
+                            line.classList.add('active');
+                            container.scrollTo({
+                                top: line.offsetTop - container.offsetTop - 180,
+                                behavior: 'smooth'
+                            });
+                        }
+
+                        const words = line.querySelectorAll('.word');
+                        const progressInLine = t - startTime;
+                        const duration = endTime - startTime;
+                        const wordsToHighlight = Math.floor((progressInLine / duration) * words.length * 1.5);
+
+                        words.forEach((word, idx) => {
+                            if (idx <= wordsToHighlight) {
+                                word.classList.add('highlight');
+                                word.style.animationDelay = (idx * 0.05) + 's';
+                            } else {
+                                word.classList.remove('highlight');
+                            }
+                        });
+                    } else {
+                        line.classList.remove('active');
+                        line.querySelectorAll('.word').forEach(w => w.classList.remove('highlight'));
+                    }
+                });
+                if (audio.duration && t >= audio.duration - 1) goShuffle();
+            });
+
+            document.addEventListener('click', (e) => {
+                const line = e.target.closest('.line');
+                if (line) {
+                    audio.currentTime = parseFloat(line.dataset.t);
+                    audio.play();
                 }
             });
-            if (audio.duration && t >= audio.duration - 1) goShuffle();
-        });
 
-        document.addEventListener('click', (e) => {
-            const line = e.target.closest('.line');
-            if (line) { audio.currentTime = parseFloat(line.dataset.t); audio.play(); }
-        });
+            document.addEventListener('mousemove', (e) => {
+                flare.style.setProperty('--x', (e.clientX / window.innerWidth * 100) + '%');
+                flare.style.setProperty('--y', (e.clientY / window.innerHeight * 100) + '%');
+            });
 
-        document.addEventListener('mousemove', (e) => {
-            flare.style.setProperty('--x', (e.clientX / window.innerWidth * 100) + '%');
-            flare.style.setProperty('--y', (e.clientY / window.innerHeight * 100) + '%');
-        });
-
-        function createBubbles() {
-            for (let i = 0; i < 30; i++) {
-                let b = document.createElement('div'); b.className = 'bubble';
-                let size = Math.random() * 40 + 5 + 'px';
-                b.style.width = size; b.style.height = size;
-                b.style.left = Math.random() * 100 + '%';
-                b.style.animationDuration = Math.random() * 10 + 5 + 's';
-                bubbleBox.appendChild(b);
+            function createBubbles() {
+                for (let i = 0; i < 30; i++) {
+                    let b = document.createElement('div');
+                    b.className = 'bubble';
+                    let size = Math.random() * 40 + 5 + 'px';
+                    b.style.width = size;
+                    b.style.height = size;
+                    b.style.left = Math.random() * 100 + '%';
+                    b.style.animationDuration = Math.random() * 10 + 5 + 's';
+                    bubbleBox.appendChild(b);
+                }
             }
-        }
-        createBubbles();
+            createBubbles();
 
-        function goShuffle() {
-            const p = ['index.html', 'player2.html', 'player3.html', 'player4.html', 'player6.html'];
-            window.location.href = p[Math.floor(Math.random() * p.length)];
-        }
+            function goShuffle() {
+                const p = ['index.html', 'player2.html', 'player3.html', 'player4.html', 'player6.html'];
+                window.location.href = p[Math.floor(Math.random() * p.length)];
+            }
 
-        progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
-        document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
-    </script>
-</body>
+            progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
+            document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
+        </script>
+    </body>
+
 </html>
