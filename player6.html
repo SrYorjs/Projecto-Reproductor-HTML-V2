@@ -3,23 +3,24 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>The Marías - No One Noticed (Apple Style)</title>
+        <title>She & Him - I Thought I Saw Your Face Today</title>
         <style>
             :root {
-                --deep-ocean: #010b14;
-                --water-blue: #38bdf8;
-                --accent-gray: #1e293b;
-                --glass: rgba(255, 255, 255, 0.04);
-                --glow: rgba(56, 189, 248, 0.3);
-                --fog-color: rgba(56, 189, 248, 0.08);
-                --lens-flare: rgba(56, 189, 248, 0.05);
+                --pure-black: #0d0d05;
+                --soft-white: #fffbeb;
+                --accent-yellow: #facc15;
+                --accent-gray: #4a4530;
+                --glass: rgba(255, 250, 200, 0.05);
+                --glow: rgba(250, 204, 21, 0.25);
+                --fog-color: rgba(253, 224, 71, 0.08);
+                --lens-flare: rgba(254, 240, 138, 0.05);
             }
 
             body {
                 margin: 0;
                 font-family: 'Segoe UI', sans-serif;
-                background: radial-gradient(circle at 50% 50%, #0a1e35 0%, var(--deep-ocean) 100%);
-                color: white;
+                background-color: var(--pure-black);
+                color: var(--soft-white);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -39,7 +40,7 @@
                 background:
                     radial-gradient(circle at 20% 30%, var(--fog-color) 0%, transparent 50%),
                     radial-gradient(circle at 80% 70%, var(--fog-color) 0%, transparent 50%),
-                    radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+                    radial-gradient(circle at 50% 10%, rgba(250, 204, 21, 0.05) 0%, transparent 40%);
                 animation: fogDrift 25s ease-in-out infinite;
                 z-index: -2;
                 filter: blur(100px);
@@ -73,8 +74,8 @@
             .bubble {
                 position: fixed;
                 bottom: -100px;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(250, 204, 21, 0.07);
+                border: 1px solid rgba(250, 204, 21, 0.1);
                 border-radius: 50%;
                 animation: rise linear infinite;
                 pointer-events: none;
@@ -88,11 +89,11 @@
                 }
 
                 50% {
-                    opacity: 0.3;
+                    opacity: 0.4;
                 }
 
                 100% {
-                    transform: translateY(-120vh) scale(1.3);
+                    transform: translateY(-120vh) scale(1.5);
                     opacity: 0;
                 }
             }
@@ -106,8 +107,8 @@
                 border-radius: 40px;
                 padding: 50px;
                 gap: 40px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
+                border: 1px solid rgba(250, 204, 21, 0.1);
+                box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
                 z-index: 10;
                 margin-bottom: 60px;
                 box-sizing: border-box;
@@ -135,7 +136,7 @@
                 -webkit-appearance: none;
                 width: 100%;
                 height: 6px;
-                background: rgba(255, 255, 255, 0.15);
+                background: rgba(250, 204, 21, 0.15);
                 border-radius: 10px;
                 outline: none;
                 cursor: pointer;
@@ -146,8 +147,8 @@
                 width: 16px;
                 height: 16px;
                 border-radius: 50%;
-                background: var(--water-blue);
-                box-shadow: 0 0 15px var(--water-blue);
+                background: var(--accent-yellow);
+                box-shadow: 0 0 15px var(--accent-yellow);
                 transition: 0.3s ease;
                 margin-top: -5px;
             }
@@ -192,8 +193,8 @@
             }
 
             .word.highlight {
-                color: var(--water-blue);
-                text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+                color: var(--accent-yellow);
+                text-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
                 animation: individualWave 1.4s ease-in-out infinite;
             }
 
@@ -227,7 +228,7 @@
                 max-width: 1100px;
                 background: var(--glass);
                 backdrop-filter: blur(30px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(250, 204, 21, 0.15);
                 border-radius: 35px;
                 padding: 50px;
                 box-sizing: border-box;
@@ -237,10 +238,10 @@
             }
 
             .meaning-box h2 {
-                color: var(--water-blue);
+                color: var(--accent-yellow);
                 margin-top: 0;
                 font-size: 1.7rem;
-                border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+                border-bottom: 1px solid rgba(250, 204, 21, 0.15);
                 padding-bottom: 20px;
             }
 
@@ -254,7 +255,7 @@
             .play-btn {
                 width: 75px;
                 height: 75px;
-                background: white;
+                background: var(--accent-yellow);
                 color: black;
                 border-radius: 50%;
                 display: flex;
@@ -268,7 +269,6 @@
 
             .play-btn:hover {
                 transform: scale(1.1);
-                background: var(--water-blue);
             }
         </style>
     </head>
@@ -280,14 +280,14 @@
 
         <div class="main-container">
             <div class="player-left">
-                <img src="non.png" class="cover">
+                <img src="yourface.png" class="cover">
                 <div style="text-align:center;">
-                    <h2 style="margin:0; letter-spacing: 1px; color: var(--water-blue);">No One Noticed</h2>
-                    <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:5px; font-size:0.75rem;">THE MARÍAS</p>
+                    <h2 style="margin:0; letter-spacing: 1px;">I Thought I Saw Your Face Today</h2>
+                    <p style="margin:5px 0 25px; opacity:0.5; letter-spacing:5px; font-size:0.75rem;">SHE & HIM</p>
                 </div>
                 <input type="range" id="progress" value="0">
                 <div style="display:flex; justify-content:space-between; width:100%; opacity:0.4; font-size:12px; margin-top:10px;">
-                    <span id="curTime">0:00</span><span>4:44</span>
+                    <span id="curTime">0:00</span><span>2:50</span>
                 </div>
                 <div style="margin:35px 0; display:flex; gap:35px; align-items:center;">
                     <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="18" style="filter:invert(1)"></button>
@@ -303,75 +303,65 @@
 
             <div class="player-right">
                 <div class="lyrics-scroll" id="lrcContainer">
-                    <div class="line" data-t="00:00.82"><span class="eng">Maybe I</span><span class="esp">Tal vez yo</span></div>
-                    <div class="line" data-t="00:04.88"><span class="eng">Lost my mind</span><span class="esp">Perdí mi mente</span></div>
-                    <div class="line" data-t="00:09.61"><span class="eng">No one noticed</span><span class="esp">Nadie se dio cuenta</span></div>
-                    <div class="line" data-t="00:14.63"><span class="eng">No one noticed</span><span class="esp">Nadie se dio cuenta</span></div>
-                    <div class="line" data-t="00:16.82"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="00:19.32"><span class="eng">It's getting old (I'd kinda like it if you'd call me)</span><span class="esp">Se está pasando de moda (me gustaría que me llamaras)</span></div>
-                    <div class="line" data-t="00:24.33"><span class="eng">All alone ('cause I'm so over bein' lonely)</span><span class="esp">Completamente sola (porque estoy harta de estar sola)</span></div>
-                    <div class="line" data-t="00:29.31"><span class="eng">May have lost it (I need a virtual connection)</span><span class="esp">Tal vez he enloquecido (necesito una conexión virtual)</span></div>
-                    <div class="line" data-t="00:34.24"><span class="eng">What if I have lost it (be my video obsession)</span><span class="esp">¿Y si he enloquecido? (sé mi obsesión de video)</span></div>
-                    <div class="line" data-t="00:38.98"><span class="eng">🎶🎵</span><span class="esp"></span></div>
-                    <div class="line" data-t="00:58.78"><span class="eng">No one tried</span><span class="esp">Nadie intentó</span></div>
-                    <div class="line" data-t="01:03.20"><span class="eng">To read my eyes</span><span class="esp">Leer mis ojos</span></div>
-                    <div class="line" data-t="01:06.41"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="01:08.49"><span class="eng">No one but you</span><span class="esp">Nadie excepto tú</span></div>
-                    <div class="line" data-t="01:11.46"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="01:13.48"><span class="eng">Wish it weren't true</span><span class="esp">Desearía que no fuera verdad</span></div>
-                    <div class="line" data-t="01:18.45"><span class="eng">Maybe I (I'd kinda like it if you'd call me)</span><span class="esp">Tal vez yo (me gustaría que me llamaras)</span></div>
-                    <div class="line" data-t="01:23.14"><span class="eng">It's not right ('cause I'm so over bein' lonely)</span><span class="esp">No está bien (porque estoy harta de estar sola)</span></div>
-                    <div class="line" data-t="01:28.09"><span class="eng">Make you mine (I need a virtual connection)</span><span class="esp">Hacerte mío (necesito una conexión virtual)</span></div>
-                    <div class="line" data-t="01:32.94"><span class="eng">Take our time (be my video obsession)</span><span class="esp">Tomarnos nuestro tiempo (sé mi obsesión de video)</span></div>
-                    <div class="line" data-t="01:39.31"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="01:44.59"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="01:49.45"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="01:53.92"><span class="eng">Hold me, console me, and then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y luego me iré sin rastro</span></div>
-                    <div class="line" data-t="01:58.92"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="02:04.04"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="02:08.88"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="02:13.64"><span class="eng">Hold me, console me, then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y me iré sin rastro</span></div>
-                    <div class="line" data-t="02:18.68"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="02:23.54"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="02:28.54"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="02:33.19"><span class="eng">Hold me, console me, and then I'll leave without a trace (maybe I)</span><span class="esp">Abrázame, consuélame y me iré sin rastro (tal vez yo)</span></div>
-                    <div class="line" data-t="02:38.29"><span class="eng">Come on, don't leave me, it can't be that easy, babe (it's not right)</span><span class="esp">Vamos no me dejes, no puede ser así de fácil (no está bien)</span></div>
-                    <div class="line" data-t="02:43.15"><span class="eng">If you believe me, I guess I'll get on a plane (make you mine)</span><span class="esp">Si me crees creo que iré en avión (hacerte mío)</span></div>
-                    <div class="line" data-t="02:48.04"><span class="eng">Fly to your city excited to see your face (take our time)</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara (tomarnos nuestro tiempo)</span></div>
-                    <div class="line" data-t="02:52.91"><span class="eng">Hold me, console me and then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y luego me iré sin rastro</span></div>
-                    <div class="line" data-t="02:57.46"><span class="eng">🎶🎵</span><span class="esp"></span></div>
-                    <div class="line" data-t="03:17.73"><span class="eng">I'd kinda like it if you'd call me (it's not right)</span><span class="esp">Me gustaría que me llamaras (no está bien)</span></div>
-                    <div class="line" data-t="03:22.66"><span class="eng">'Cause I'm so over bein' lonely (make you mine)</span><span class="esp">Porque estoy harta de estar sola (hacerte mío)</span></div>
-                    <div class="line" data-t="03:27.45"><span class="eng">I need a virtual connection (take our time)</span><span class="esp">Necesito una conexión virtual (tomarnos nuestro tiempo)</span></div>
-                    <div class="line" data-t="03:32.75"><span class="eng">Be my video obsession</span><span class="esp">Sé mi obsesión de video</span></div>
-                    <div class="line" data-t="03:35.96"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="03:57.10"><span class="eng">Estás tan dentro de mí</span><span class="esp">Estás tan dentro de mí</span></div>
-                    <div class="line" data-t="04:05.76"><span class="eng">Te sigo pensando</span><span class="esp">Te sigo pensando</span></div>
-                    <div class="line" data-t="04:10.80"><span class="eng">Te sigo esperando</span><span class="esp">Te sigo esperando</span></div>
-                    <div class="line" data-t="04:14.66"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="04:17.09"><span class="eng">Y estás, oh</span><span class="esp">Y estás, oh</span></div>
-                    <div class="line" data-t="04:20.76"><span class="eng">Tan lejos de mí, oh</span><span class="esp">Tan lejos de mí, oh</span></div>
-                    <div class="line" data-t="04:25.68"><span class="eng">Te sigo pensando</span><span class="esp">Te sigo pensando</span></div>
-                    <div class="line" data-t="04:31.08"><span class="eng">Me canso, llorando</span><span class="esp">Me canso, llorando</span></div>
+                    <div class="line" data-t="00:00.00"><span class="eng">I thought I saw your face today</span><span class="esp">Pensé que vi tu rostro hoy</span></div>
+                    <div class="line" data-t="00:03.26"><span class="eng">But I just turned my head away</span><span class="esp">Pero solo volteé la cabeza</span></div>
+                    <div class="line" data-t="00:06.80"><span class="eng">Your face against the trees</span><span class="esp">Tu rostro contra los árboles</span></div>
+                    <div class="line" data-t="00:09.32"><span class="eng">But I just see the memories</span><span class="esp">Pero solo veo los recuerdos</span></div>
+                    <div class="line" data-t="00:12.75"><span class="eng">As they come</span><span class="esp">Como vienen</span></div>
+                    <div class="line" data-t="00:15.00"><span class="eng">As they come</span><span class="esp">Como vienen</span></div>
+                    <div class="line" data-t="00:18.07"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:18.93"><span class="eng">And I couldn't help but fall in love again</span><span class="esp">Y no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="00:25.03"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme otra vez</span></div>
+                    <div class="line" data-t="00:30.13"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:31.94"><span class="eng">I saw it glitter as I grew</span><span class="esp">Lo vi brillar mientras crecía</span></div>
+                    <div class="line" data-t="00:34.94"><span class="eng">And loved it why I never knew</span><span class="esp">Y por qué lo amaba, nunca supe</span></div>
+                    <div class="line" data-t="00:38.19"><span class="eng">I thought this place was heaven sent</span><span class="esp">Pensé que este lugar era un paraíso enviado</span></div>
+                    <div class="line" data-t="00:41.01"><span class="eng">But now it's just a monument</span><span class="esp">Pero ahora es solo un monumento</span></div>
+                    <div class="line" data-t="00:43.84"><span class="eng">In my mind</span><span class="esp">En mi mente</span></div>
+                    <div class="line" data-t="00:46.09"><span class="eng">In my mind</span><span class="esp">En mi mente</span></div>
+                    <div class="line" data-t="00:48.88"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:50.05"><span class="eng">And I couldn't help but fall in love again</span><span class="esp">Y no pude evitar enamorarme otra vez</span></div>
+                    <div class="line" data-t="00:56.44"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="01:01.13"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="01:03.31"><span class="eng">The cars and freeways</span><span class="esp">Los coches y las autopistas</span></div>
+                    <div class="line" data-t="01:04.74"><span class="eng">Implore me to stay away out of this place</span><span class="esp">Me imploran que me mantenga alejada de este lugar</span></div>
+                    <div class="line" data-t="01:09.04"><span class="eng">My mother said just keep your head</span><span class="esp">Mi madre dijo: Solo mantén la cabeza fría</span></div>
+                    <div class="line" data-t="01:12.04"><span class="eng">And play it as it lays</span><span class="esp">Y acéptalo como venga</span></div>
+                    <div class="line" data-t="01:17.48"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="01:48.31"><span class="eng">The cars and freeways</span><span class="esp">Los coches y las autopistas</span></div>
+                    <div class="line" data-t="01:49.61"><span class="eng">Implore me to stay away out of this place</span><span class="esp">Me imploran que me mantenga alejada de este lugar</span></div>
+                    <div class="line" data-t="01:53.69"><span class="eng">My mother said just keep your head</span><span class="esp">Mi madre dijo: Solo mantén la cabeza fría</span></div>
+                    <div class="line" data-t="01:57.15"><span class="eng">And play it as it lays</span><span class="esp">Y acéptalo como venga</span></div>
+                    <div class="line" data-t="02:02.31"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="02:02.79"><span class="eng">I somehow see what's beautiful</span><span class="esp">De alguna manera veo lo que es hermoso</span></div>
+                    <div class="line" data-t="02:05.79"><span class="eng">In things that are ephemeral</span><span class="esp">En las cosas que son efímeras</span></div>
+                    <div class="line" data-t="02:09.07"><span class="eng">I'm my only friend, am I?</span><span class="esp">Soy mi único amigo, ¿verdad?</span></div>
+                    <div class="line" data-t="02:12.54"><span class="eng">Love is just a piece of time</span><span class="esp">El amor es solo un trocito de tiempo</span></div>
+                    <div class="line" data-t="02:14.67"><span class="eng">In the world</span><span class="esp">En el mundo</span></div>
+                    <div class="line" data-t="02:17.28"><span class="eng">In the world</span><span class="esp">En el mundo</span></div>
+                    <div class="line" data-t="02:19.48"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="02:20.45"><span class="eng">And I couldn't help but fall in love again</span><span class="esp">Y no pude evitar enamorarme otra vez</span></div>
+                    <div class="line" data-t="02:26.32"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="02:32.30"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="02:38.42"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="02:42.82"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
+                    <div class="line" data-t="02:46.98"><span class="eng">No, I couldn't help but fall in love again</span><span class="esp">No, no pude evitar enamorarme de nuevo</span></div>
                 </div>
             </div>
         </div>
 
         <div class="meaning-box">
-            <h2>Conexiones Virtuales y Soledad en 'No One Noticed' de The Marías</h2>
+            <h2>Nostalgia y Amor Efímero en 'I Thought I Saw Your Face Today' de She & Him</h2>
             <div class="meaning-content">
-                <p>La canción "No One Noticed - Extended Spanish" de The Marías explora temas de soledad, desconexión emocional y la búsqueda de conexiones significativas en un mundo cada vez más digital. La letra refleja un sentimiento de aislamiento, donde el protagonista siente que ha perdido la cordura sin que nadie lo note. Este sentimiento de invisibilidad se acentúa con la repetición de la frase "No one noticed", sugiriendo una falta de atención y comprensión por parte del entorno.</p>
-
-                <p>A lo largo de la canción, se percibe un anhelo por una conexión auténtica, aunque sea a través de medios digitales. La mención de una "conexión virtual" y la "obsesión por el video" resalta cómo las relaciones modernas a menudo se desarrollan en pantallas, lo que puede ser tanto una fuente de consuelo como de profunda frustración. La letra sugiere un deseo de escapar de la soledad, con la esperanza de que alguien especial pueda llenar ese vacío emocional a pesar de la distancia física.</p>
-
-                <p>El uso del español en la parte final añade una capa de intimidad y vulnerabilidad. Las líneas "Te sigo pensando, te sigo esperando" evocan una profunda añoranza y tristeza por alguien que está lejos. Esta mezcla de idiomas refleja la identidad bicultural de The Marías, creando un sonido único que resuena con la melancolía de la era digital, donde la proximidad física no siempre garantiza una conexión emocional genuina.</p>
-
-                <p style="margin-top:25px; font-weight:bold; color:var(--water-blue);">Escrita por: Gianluca Buccellati, The Marías & Josh Conway.</p>
-                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
+                <p>La canción 'I Thought I Saw Your Face Today' de She & Him es una exploración melancólica de la nostalgia y el amor perdido. La letra comienza con la imagen de un rostro familiar que el narrador cree ver, solo para darse cuenta de que es una ilusión. Este rostro, que se mezcla con los árboles, simboliza recuerdos que resurgen y evocan sentimientos profundos. La repetición de 'And I couldn't help but fall in love again' sugiere una lucha interna entre el deseo de revivir esos momentos y la realidad de su pérdida.</p>
+                <p>A medida que la canción avanza, el narrador reflexiona sobre un lugar que una vez consideró celestial, pero que ahora se ha convertido en un monumento en su mente. Esta transformación de un paraíso a un recuerdo distante refleja la naturaleza cambiante de las emociones y la percepción del tiempo. La mención de los coches y las autopistas que lo alejan de este lugar añade una capa de movimiento y distancia, simbolizando el paso del tiempo y la inevitable separación de lo que una vez fue querido.</p>
+                <p>La canción también toca temas de belleza efímera y la soledad. La línea 'I somehow see what's beautiful in things that are ephemeral' sugiere una apreciación de la transitoriedad de la vida y el amor. La pregunta 'I'm my only friend, am I?' resalta un sentimiento de aislamiento, donde el narrador se encuentra solo con sus recuerdos y reflexiones. En última instancia, es una meditación sobre la memoria, el amor y la aceptación de la naturaleza pasajera de las cosas.</p>
+                <p style="margin-top:25px; font-weight:bold; color:var(--accent-yellow);">Escrita por: Zooey Deschanel.</p>
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3> 
             </div>
         </div>
 
-        <audio id="audio" src="non.mp3" preload="auto"></audio>
+        <audio id="audio" src="yourface.mp3" preload="auto"></audio>
 
         <script>
             const audio = document.getElementById('audio');
@@ -383,18 +373,22 @@
             const bubbleBox = document.getElementById('bubbleBox');
             let currentActiveLine = null;
 
+            
             function parseTime(timeStr) {
                 if (!timeStr) return 0;
                 const parts = timeStr.split(':');
-                return parts.length < 2 ? parseFloat(timeStr) : parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+                if (parts.length < 2) return parseFloat(timeStr); 
+                return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
             }
 
+            
             function setupAppleLyrics() {
                 const lines = document.querySelectorAll('.line');
                 lines.forEach(line => {
                     const engSpan = line.querySelector('.eng');
                     const originalText = engSpan.textContent;
                     engSpan.innerHTML = '';
+
                     originalText.split(' ').forEach(word => {
                         const span = document.createElement('span');
                         span.className = 'word';
@@ -415,10 +409,12 @@
             audio.addEventListener('timeupdate', () => {
                 const t = audio.currentTime;
                 if (audio.duration) progress.value = (t / audio.duration) * 100;
+
                 curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
 
                 const lines = document.querySelectorAll('.line');
                 lines.forEach((line, i) => {
+                    
                     const startTime = parseTime(line.dataset.t);
                     const nextLine = lines[i + 1];
                     const endTime = nextLine ? parseTime(nextLine.dataset.t) : startTime + 4;
@@ -433,15 +429,22 @@
                                 behavior: 'smooth'
                             });
                         }
+
+                        
                         const words = line.querySelectorAll('.word');
                         const progressInLine = t - startTime;
                         const duration = endTime - startTime;
+
+                        
                         const wordsToHighlight = Math.floor((progressInLine / duration) * words.length * 1.5);
+
                         words.forEach((word, idx) => {
                             if (idx <= wordsToHighlight) {
                                 word.classList.add('highlight');
                                 word.style.animationDelay = (idx * 0.05) + 's';
-                            } else word.classList.remove('highlight');
+                            } else {
+                                word.classList.remove('highlight');
+                            }
                         });
                     } else {
                         line.classList.remove('active');
@@ -466,21 +469,21 @@
 
             function createBubbles() {
                 bubbleBox.innerHTML = '';
-                for (let i = 0; i < 25; i++) {
+                for (let i = 0; i < 30; i++) {
                     let b = document.createElement('div');
                     b.className = 'bubble';
-                    let size = Math.random() * 40 + 10 + 'px';
+                    let size = Math.random() * 40 + 5 + 'px';
                     b.style.width = size;
                     b.style.height = size;
                     b.style.left = Math.random() * 100 + '%';
-                    b.style.animationDuration = Math.random() * 8 + 4 + 's';
+                    b.style.animationDuration = Math.random() * 10 + 5 + 's';
                     bubbleBox.appendChild(b);
                 }
             }
             createBubbles();
 
             function goShuffle() {
-                const p = ['index.html', 'player2.html', 'player4.html', 'player5.html', 'player6.html'];
+                const p = ['index.html', 'player2.html', 'player3.html', 'player4.html', 'player5.html'];
                 window.location.href = p[Math.floor(Math.random() * p.length)];
             }
 

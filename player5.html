@@ -8,7 +8,7 @@
         :root {
             --pure-black: #000000;
             --soft-white: #ffffff; 
-            --accent-gray: #4a4a4a; /* Color de palabra apagada */
+            --accent-gray: #4a4a4a; 
             --glass: rgba(255, 255, 255, 0.04);
             --glow: rgba(255, 255, 255, 0.25);
             --fog-color: rgba(255, 255, 255, 0.08);
@@ -158,7 +158,7 @@
             color: var(--accent-gray);
         }
 
-        /* ✨ ESTILO ONDA POR PALABRA INDIVIDUAL */
+        
         .word {
             display: inline-block;
             transition: color 0.4s ease, text-shadow 0.4s ease;
@@ -311,13 +311,13 @@
         const bubbleBox = document.getElementById('bubbleBox');
         let currentActiveLine = null;
 
-        // --- PREPROCESAMIENTO DE PALABRAS (EFECTO APPLE) ---
+        
         function setupAppleLyrics() {
             const lines = document.querySelectorAll('.line');
             lines.forEach(line => {
                 const engSpan = line.querySelector('.eng');
                 const originalText = engSpan.textContent;
-                engSpan.innerHTML = ''; // Limpiar
+                engSpan.innerHTML = ''; 
                 
                 originalText.split(' ').forEach(word => {
                     const span = document.createElement('span');
@@ -330,7 +330,6 @@
         }
         setupAppleLyrics();
 
-        // Controles
         function toggle() { audio.paused ? audio.play() : audio.pause(); }
         audio.addEventListener('play', () => playBtn.innerHTML = "❚❚");
         audio.addEventListener('pause', () => playBtn.innerHTML = "►");
@@ -354,7 +353,6 @@
                         container.scrollTo({ top: line.offsetTop - container.offsetTop - 180, behavior: 'smooth' });
                     }
 
-                    // Iluminación palabra por palabra
                     const words = line.querySelectorAll('.word');
                     const progressInLine = t - startTime;
                     const duration = endTime - startTime;
@@ -399,7 +397,7 @@
         createBubbles();
 
         function goShuffle() {
-            const p = ['player.html', 'player2.html', 'player3.html', 'player4.html'];
+            const p = ['index.html', 'player2.html', 'player3.html', 'player4.html', 'player6.html'];
             window.location.href = p[Math.floor(Math.random() * p.length)];
         }
 

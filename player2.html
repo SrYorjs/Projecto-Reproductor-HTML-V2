@@ -1,372 +1,471 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <title>The Marías - Sienna (Extended)</title>
-    <style>
-        :root {
-            --deep-ocean: #010b14;
-            --water-blue: #38bdf8;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glow: rgba(56, 189, 248, 0.5);
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at 50% 50%, #0a1e35 0%, #010b14 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 50px 0;
-        }
-
-        .bubble {
-            position: fixed;
-            bottom: -100px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: rise linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes rise {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.3; }
-            100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
-        }
-
-        .main-container {
-            display: flex;
-            width: 90%;
-            max-width: 1100px;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            border-radius: 40px;
-            padding: 50px;
-            gap: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
-            z-index: 10;
-            margin-bottom: 60px;
-        }
-
-        .player-left {
-            flex: 0 0 350px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding-right: 40px;
-        }
-
-        .cover {
-            width: 300px;
-            height: 300px;
-            border-radius: 20px;
-            object-fit: cover;
-            margin-bottom: 25px;
-            box-shadow: 0 0 50px var(--glow);
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: white;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            transition: 0.3s ease;
-            margin-top: -5px;
-        }
-
-        .playing::-webkit-slider-thumb {
-            background: var(--water-blue) !important;
-            box-shadow: 0 0 20px var(--water-blue) !important;
-        }
-
-        .player-right {
-            flex: 1;
-            height: 480px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .lyrics-scroll {
-            height: 100%;
-            overflow-y: scroll;
-            scrollbar-width: none;
-            padding-left: 25px;
-            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
-        }
-
-        .line {
-            padding: 20px 0;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            margin-left: 5px;
-            opacity: 0.1;
-        }
-
-        .en {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .es {
-            font-size: 0.95rem;
-            font-weight: 400;
-            opacity: 0.7;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .line.active {
-            opacity: 1;
-            color: var(--water-blue);
-            transform: translateX(10px);
-        }
-
-        .line.active .en span {
-            display: inline-block;
-            animation: wave 1s ease-in-out infinite;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .meaning-box {
-            width: 90%;
-            max-width: 1100px;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 45px;
-            box-sizing: border-box;
-            z-index: 10;
-            margin-bottom: 80px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .meaning-box h2 {
-            color: var(--water-blue);
-            margin-top: 0;
-            font-size: 1.6rem;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .meaning-content {
-            line-height: 1.8;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            text-align: justify;
-        }
-
-        .play-btn {
-            width: 75px;
-            height: 75px;
-            background: white;
-            color: black;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 28px;
-            border: none;
-            transition: 0.3s;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="bubbleBox"></div>
-
-    <div class="main-container">
-        <div class="player-left">
-            <img src="icon2.png" class="cover">
-            <div style="text-align:center;">
-                <h2 style="margin:0; color: var(--water-blue);">Sienna</h2>
-                <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:3px; font-size:0.8rem;">THE MARÍAS</p>
-            </div>
-
-            <input type="range" id="progress" value="0">
-            <div style="display:flex; justify-content:space-between; width:100%; opacity:0.5; font-size:13px; margin-top:10px;">
-                <span id="curTime">0:00</span><span>3:44</span>
-            </div>
-
-            <div style="margin:30px 0; display:flex; gap:35px; align-items:center;">
-                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="20"></button>
-                <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
-                <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="20"></button>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:12px; width:80%;">
-                <span>🔉</span>
-                <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
-            </div>
-
-            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top: 20px;">HTML made by SrYor</h3>
-        </div>
-        <div class="player-right">
-            <div class="lyrics-scroll" id="lrcContainer">
-                <div class="line" data-t="1.28"><span class="en">Please tell me not to go</span><span class="es">Por favor, dime que no me vaya</span></div>
-                <div class="line" data-t="7.64"><span class="en">We've been here long before</span><span class="es">Hemos estado aquí mucho tiempo</span></div>
-                <div class="line" data-t="14.18"><span class="en">I live under your eyelids</span><span class="es">Vivo bajo tus párpados</span></div>
-                <div class="line" data-t="20.59"><span class="en">I'll always be yours</span><span class="es">Siempre voy a ser tuya</span></div>
-                <div class="line" data-t="27.13"><span class="en">I'll lay on your rooftop in the freezing cold</span><span class="es">Me voy a acostar en tu techo en un frío congelante</span></div>
-                <div class="line" data-t="33.65"><span class="en">And I'll watch the sunset wearing all your clothes</span><span class="es">Y voy a ver el atardecer usando toda tu ropa</span></div>
-                <div class="line" data-t="40.14"><span class="en">I can feel you with me like I did before</span><span class="es">Puedo sentirte conmigo como ya te sentí antes</span></div>
-                <div class="line" data-t="46.35"><span class="en">Like when I sang you a love song by Norah Jones</span><span class="es">Como cuando te canté una canción de amor de Norah Jones</span></div>
-                <div class="line" data-t="51.81"><span class="en">Ooh, Sienna would've been cute</span><span class="es">Uh, Sienna habría sido tierno</span></div>
-                <div class="line" data-t="64.87"><span class="en">Ooh, Sienna would look just like you</span><span class="es">Uh, Sienna sería tan tú</span></div>
-                <div class="line" data-t="79.42"><span class="en">I came clean, and it feels so good</span><span class="es">Fui honesta y fue tan bueno</span></div>
-                <div class="line" data-t="92.40"><span class="en">But I feel seen only through you</span><span class="es">Solo me siento vista por ti</span></div>
-                <div class="line" data-t="106.62"><span class="en">I'll wait here tomorrow outside your door</span><span class="es">Esperaré aquí mañana fuera de tu puerta</span></div>
-                <div class="line" data-t="113.07"><span class="en">Like I did in December when you held me close</span><span class="es">Como lo hice en diciembre cuando me abrazaste fuerte</span></div>
-                <div class="line" data-t="119.54"><span class="en">Coming up on your corner, pulling out my hair</span><span class="es">Llegando a la esquina de tu casa volviéndome loca</span></div>
-                <div class="line" data-t="126.01"><span class="en">Hear the creak in the floorboards going up the stairs</span><span class="es">Escucho el crujir de las tablas del piso subiendo las escaleras</span></div>
-                <div class="line" data-t="131.18"><span class="en">Ooh, Sienna would've been cute</span><span class="es">Uh, Sienna habría sido lindo</span></div>
-                <div class="line" data-t="144.22"><span class="en">Ooh, Sienna would look just like you</span><span class="es">Uh, Sienna sería tan tú</span></div>
-                <div class="line" data-t="156.47"><span class="en">With a temper like you, run around like you</span><span class="es">Con un temperamento igual al tuyo, corriendo por ahí como tú</span></div>
-                <div class="line" data-t="163.31"><span class="en">Jumping in the pool like you</span><span class="es">Saltando en la piscina como tú</span></div>
-                <div class="line" data-t="169.78"><span class="en">Sing to all her pets in the way I did</span><span class="es">Cantando para todos sus animalitos como yo también canté</span></div>
-                <div class="line" data-t="176.29"><span class="en">Be sensitive like you</span><span class="es">Sería sensible como tú</span></div>
-                <div class="line" data-t="184.40"><span class="en">And I smile when I think of all the times we had</span><span class="es">Y sonrío cuando pienso en todos los momentos que tuvimos</span></div>
-                <div class="line" data-t="190.94"><span class="en">On the beach in the winter, when the waves were mad</span><span class="es">En la playa durante el invierno, cuando las olas estaban furiosas</span></div>
-                <div class="line" data-t="197.84"><span class="en">Down by the water, crystal clear</span><span class="es">Cerca del agua cristalina</span></div>
-                <div class="line" data-t="203.86"><span class="en">See her face in the forest, then it disappears</span><span class="es">Veo su rostro en el bosque y luego desaparece</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="meaning-box">
-        <h2>Sienna: Un Retrato de Nostalgia y Amor Perdido</h2>
-        <div class="meaning-content">
-            <p>La canción 'Sienna' de The Marías es una evocación nostálgica de un amor pasado, lleno de imágenes vívidas y sentimientos profundos. La letra está impregnada de una melancolía suave, donde el narrador recuerda momentos íntimos y significativos con una persona especial. Desde el inicio, la súplica de 'Please tell me not to go' establece un tono de desesperación y deseo de permanencia.</p>
-            <p>Las metáforas y las imágenes poéticas son abundantes. Frases como 'I live under your eyelids' y 'I’ll lay on your rooftop in the freezing cold' pintan un cuadro de devoción y sacrificio. La repetición del nombre 'Sienna' y la descripción de cómo 'would’ve looked just like you' insinúan una conexión profunda y posiblemente una pérdida, representando un futuro que nunca se materializó.</p>
-            <p style="margin-top:20px; font-weight:bold; color:var(--water-blue); opacity:0.9;">Escrita por: Josh Conway & Maria Zardoya.</p>
-            <h3 style="border:none; opacity:0.5; font-size:0.8rem; margin-top:20px;">HTML made by SrYor</h3>
-        </div>
-    </div>
-
-    <audio id="audio" src="sienna.mp3" preload="metadata"></audio>
-
-    <script>
-        const audio = document.getElementById('audio');
-        const container = document.getElementById('lrcContainer');
-        const playBtn = document.getElementById('playBtn');
-        const progress = document.getElementById('progress');
-        const curTime = document.getElementById('curTime');
-        const bubbleBox = document.getElementById('bubbleBox');
-        let currentActiveLine = null;
-
-        function createBubbles() {
-            for (let i = 0; i < 20; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bubble';
-                const size = Math.random() * 40 + 10 + "px";
-                bubble.style.width = size; bubble.style.height = size;
-                bubble.style.left = Math.random() * 100 + "vw";
-                bubble.style.animationDuration = Math.random() * 8 + 4 + "s";
-                bubbleBox.appendChild(bubble);
+    <head>
+        <meta charset="UTF-8">
+        <title>The Marías - Sienna (Apple Style)</title>
+        <style>
+            :root {
+                --deep-ocean: #010b14;
+                --water-blue: #38bdf8;
+                --glass: rgba(255, 255, 255, 0.04);
+                --glow: rgba(56, 189, 248, 0.3);
+                --accent-gray: #1e293b;
+                /* Palabras apagadas en tono azul oscuro */
+                --fog-color: rgba(56, 189, 248, 0.08);
+                --lens-flare: rgba(56, 189, 248, 0.05);
             }
-        }
-        createBubbles();
 
-        function toggle() { audio.paused ? audio.play() : audio.pause(); }
-
-        // AQUÍ ESTÁ LA PARTE QUE FALTABA: CLICK PARA REPRODUCIR DESDE LA LÍNEA
-        document.addEventListener('click', (e) => {
-            const line = e.target.closest('.line');
-            if (line) {
-                audio.currentTime = parseFloat(line.dataset.t);
-                audio.play();
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', sans-serif;
+                background: radial-gradient(circle at 50% 50%, #0a1e35 0%, var(--deep-ocean) 100%);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 50px 0;
+                position: relative;
             }
-        });
 
-        audio.addEventListener('play', () => {
-            playBtn.innerHTML = "❚❚";
-            progress.classList.add('playing');
-        });
+            /* 🌊 CAPAS ATMOSFÉRICAS */
+            .fog-layer {
+                position: fixed;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background:
+                    radial-gradient(circle at 20% 30%, var(--fog-color) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, var(--fog-color) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+                animation: fogDrift 25s ease-in-out infinite;
+                z-index: -2;
+                filter: blur(100px);
+                opacity: 0.8;
+            }
 
-        audio.addEventListener('pause', () => {
-            playBtn.innerHTML = "►";
-            progress.classList.remove('playing');
-        });
+            .lens-flare {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--lens-flare) 0%, transparent 70%);
+                z-index: -1;
+                pointer-events: none;
+                mix-blend-mode: screen;
+            }
 
-        audio.addEventListener('timeupdate', () => {
-            const t = audio.currentTime;
-            if (audio.duration) progress.value = (t / audio.duration) * 100;
-            curTime.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+            @keyframes fogDrift {
 
-            const lines = document.querySelectorAll('.line');
-            lines.forEach((line, i) => {
-                const startTime = parseFloat(line.dataset.t);
-                const nextLine = lines[i + 1];
-                const endTime = nextLine ? parseFloat(nextLine.dataset.t) : Infinity;
+                0%,
+                100% {
+                    transform: translate(-5%, -5%) scale(1);
+                }
 
-                if (t >= startTime && t < endTime) {
-                    if (currentActiveLine !== line) {
-                        if (currentActiveLine) {
-                            currentActiveLine.classList.remove('active');
-                            const enSpan = currentActiveLine.querySelector('.en');
-                            if (enSpan.dataset.orig) enSpan.innerHTML = enSpan.dataset.orig;
+                50% {
+                    transform: translate(5%, 5%) scale(1.1) rotate(2deg);
+                }
+            }
+
+            .bubble {
+                position: fixed;
+                bottom: -100px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                animation: rise linear infinite;
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            @keyframes rise {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 0;
+                }
+
+                50% {
+                    opacity: 0.3;
+                }
+
+                100% {
+                    transform: translateY(-120vh) scale(1.3);
+                    opacity: 0;
+                }
+            }
+
+            .main-container {
+                display: flex;
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(30px);
+                border-radius: 40px;
+                padding: 50px;
+                gap: 40px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
+                z-index: 10;
+                margin-bottom: 60px;
+                box-sizing: border-box;
+            }
+
+            .player-left {
+                flex: 0 0 350px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding-right: 40px;
+            }
+
+            .cover {
+                width: 300px;
+                height: 300px;
+                border-radius: 20px;
+                object-fit: cover;
+                margin-bottom: 25px;
+                box-shadow: 0 0 50px var(--glow);
+            }
+
+            input[type="range"] {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 10px;
+                outline: none;
+                cursor: pointer;
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: var(--water-blue);
+                box-shadow: 0 0 15px var(--water-blue);
+                transition: 0.3s ease;
+                margin-top: -5px;
+            }
+
+            .player-right {
+                flex: 1;
+                height: 480px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .lyrics-scroll {
+                height: 100%;
+                overflow-y: scroll;
+                scrollbar-width: none;
+                padding: 0 10px;
+                box-sizing: border-box;
+                mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+                -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            }
+
+            /* ✨ ESTILO APPLE MUSIC POR PALABRA */
+            .line {
+                padding: 22px 0;
+                transition: all 0.6s ease;
+                cursor: pointer;
+                opacity: 0.2;
+                max-width: 100%;
+            }
+
+            .en {
+                font-size: 1.6rem;
+                font-weight: 700;
+                display: block;
+                line-height: 1.3;
+                color: var(--accent-gray);
+            }
+
+            .word {
+                display: inline-block;
+                transition: color 0.4s ease, text-shadow 0.4s ease;
+                margin-right: 6px;
+            }
+
+            .word.highlight {
+                color: var(--water-blue);
+                text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+                animation: individualWave 1.4s ease-in-out infinite;
+            }
+
+            @keyframes individualWave {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-8px);
+                }
+            }
+
+            .es {
+                font-size: 0.95rem;
+                font-weight: 400;
+                opacity: 0.6;
+                display: block;
+                margin-top: 8px;
+            }
+
+            .line.active {
+                opacity: 1;
+                transform: translateX(15px);
+            }
+
+            .meaning-box {
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(30px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 35px;
+                padding: 50px;
+                box-sizing: border-box;
+                z-index: 10;
+                margin-bottom: 80px;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            }
+
+            .meaning-box h2 {
+                color: var(--water-blue);
+                margin-top: 0;
+                font-size: 1.7rem;
+                border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+                padding-bottom: 20px;
+            }
+
+            .meaning-content {
+                line-height: 1.9;
+                color: #e0e0e0;
+                font-size: 1.15rem;
+                text-align: justify;
+            }
+
+            .play-btn {
+                width: 75px;
+                height: 75px;
+                background: white;
+                color: black;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 26px;
+                border: none;
+                transition: 0.5s;
+            }
+
+            .play-btn:hover {
+                transform: scale(1.1);
+                background: var(--water-blue);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="fog-layer"></div>
+        <div class="lens-flare" id="flare"></div>
+        <div id="bubbleBox"></div>
+
+        <div class="main-container">
+            <div class="player-left">
+                <img src="icon2.png" class="cover">
+                <div style="text-align:center;">
+                    <h2 style="margin:0; letter-spacing: 1px; color: var(--water-blue);">Sienna</h2>
+                    <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:5px; font-size:0.75rem;">THE MARÍAS</p>
+                </div>
+                <input type="range" id="progress" value="0">
+                <div style="display:flex; justify-content:space-between; width:100%; opacity:0.4; font-size:12px; margin-top:10px;">
+                    <span id="curTime">0:00</span><span>3:44</span>
+                </div>
+                <div style="margin:35px 0; display:flex; gap:35px; align-items:center;">
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="18" style="filter:invert(1)"></button>
+                    <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="18" style="filter:invert(1)"></button>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; width:85%;">
+                    <span style="filter: invert(1); opacity: 0.6;">🔉</span>
+                    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+                </div>
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
+            </div>
+
+            <div class="player-right">
+                <div class="lyrics-scroll" id="lrcContainer">
+                    <div class="line" data-t="00:00.00"><span class="en">🎶🎵</span><span class="es"></span></div>
+                    <div class="line" data-t="00:01.28"><span class="en">Please tell me not to go</span><span class="es">Por favor, dime que no me vaya</span></div>
+                    <div class="line" data-t="00:07.64"><span class="en">We've been here long before</span><span class="es">Hemos estado aquí mucho tiempo</span></div>
+                    <div class="line" data-t="00:14.18"><span class="en">I live under your eyelids</span><span class="es">Vivo bajo tus párpados</span></div>
+                    <div class="line" data-t="00:20.59"><span class="en">I'll always be yours</span><span class="es">Siempre voy a ser tuya</span></div>
+                    <div class="line" data-t="00:27.13"><span class="en">I'll lay on your rooftop in the freezing cold</span><span class="es">Me voy a acostar en tu techo en un frío congelante</span></div>
+                    <div class="line" data-t="00:33.65"><span class="en">And I'll watch the sunset wearing all your clothes</span><span class="es">Y voy a ver el atardecer usando toda tu ropa</span></div>
+                    <div class="line" data-t="00:40.14"><span class="en">I can feel you with me like I did before</span><span class="es">Puedo sentirte conmigo como ya te sentí antes</span></div>
+                    <div class="line" data-t="00:46.35"><span class="en">Like when I sang you a love song by Norah Jones</span><span class="es">Como cuando te canté una canción de amor de Norah Jones</span></div>
+                    <div class="line" data-t="00:51.81"><span class="en">Ooh, Sienna would've been cute</span><span class="es">Uh, Sienna habría sido tierno</span></div>
+                    <div class="line" data-t="01:04.87"><span class="en">Ooh, Sienna would look just like you</span><span class="es">Uh, Sienna sería tan tú</span></div>
+                    <div class="line" data-t="01:19.42"><span class="en">I came clean, and it feels so good</span><span class="es">Fui honesta y fue tan bueno</span></div>
+                    <div class="line" data-t="01:32.40"><span class="en">But I feel seen only through you</span><span class="es">Solo me siento vista por ti</span></div>
+                    <div class="line" data-t="01:46.62"><span class="en">I'll wait here tomorrow outside your door</span><span class="es">Esperaré aquí mañana fuera de tu puerta</span></div>
+                    <div class="line" data-t="01:53.07"><span class="en">Like I did in December when you held me close</span><span class="es">Como lo hice en diciembre cuando me abrazaste fuerte</span></div>
+                    <div class="line" data-t="01:59.54"><span class="en">Coming up on your corner, pulling out my hair</span><span class="es">Llegando a la esquina de tu casa volviéndome loca</span></div>
+                    <div class="line" data-t="02:06.01"><span class="en">Hear the creak in the floorboards going up the stairs</span><span class="es">Escucho el crujir de las tablas del piso subiendo las escaleras</span></div>
+                    <div class="line" data-t="02:11.18"><span class="en">Ooh, Sienna would've been cute</span><span class="es">Uh, Sienna habría sido lindo</span></div>
+                    <div class="line" data-t="02:24.22"><span class="en">Ooh, Sienna would look just like you</span><span class="es">Uh, Sienna sería tan tú</span></div>
+                    <div class="line" data-t="02:36.47"><span class="en">With a temper like you, run around like you</span><span class="es">Con un temperamento igual al tuyo, corriendo por ahí como tú</span></div>
+                    <div class="line" data-t="02:43.31"><span class="en">Jumping in the pool like you</span><span class="es">Saltando en la piscina como tú</span></div>
+                    <div class="line" data-t="02:49.78"><span class="en">Sing to all her pets in the way I did</span><span class="es">Cantando para todos sus animalitos como yo también canté</span></div>
+                    <div class="line" data-t="02:56.29"><span class="en">Be sensitive like you</span><span class="es">Sería sensible como tú</span></div>
+                    <div class="line" data-t="03:04.40"><span class="en">And I smile when I think of all the times we had</span><span class="es">Y sonrío cuando pienso en todos los momentos que tuvimos</span></div>
+                    <div class="line" data-t="03:10.94"><span class="en">On the beach in the winter, when the waves were mad</span><span class="es">En la playa durante el invierno, cuando las olas estaban furiosas</span></div>
+                    <div class="line" data-t="03:17.84"><span class="en">Down by the water, crystal clear</span><span class="es">Cerca del agua cristalina</span></div>
+                    <div class="line" data-t="03:23.86"><span class="en">See her face in the forest, then it disappears</span><span class="es">Veo su rostro en el bosque y luego desaparece</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="meaning-box">
+            <h2>Sienna: Un Retrato de Nostalgia y Amor Perdido</h2>
+            <div class="meaning-content">
+                <p>La canción 'Sienna' de The Marías es una evocación nostálgica de un amor pasado, lleno de imágenes vívidas y sentimientos profundos. La letra está impregnada de una melancolía suave, donde el narrador recuerda momentos íntimos y significativos con una persona especial. Desde el inicio, la súplica de 'Please tell me not to go' establece un tono de desesperación y deseo de permanencia, sugiriendo que el narrador no quiere dejar atrás estos recuerdos y emociones.</p>
+
+                <p>Las metáforas y las imágenes poéticas son abundantes en la canción. Frases como 'I live under your eyelids' y 'I’ll lay on your rooftop in the freezing cold' pintan un cuadro de devoción y sacrificio, donde el narrador está dispuesto a soportar cualquier incomodidad para estar cerca de su ser querido. La repetición del nombre 'Sienna' y la descripción de cómo 'would’ve looked just like you' insinúan una conexión profunda y posiblemente una pérdida, ya que Sienna representa un futuro que nunca se materializó, a menudo interpretado como el nombre de una hija que la pareja nunca tuvo.</p>
+
+                <p>El estribillo y las estrofas finales refuerzan esta sensación de añoranza y reflexión. La mención de actividades cotidianas y recuerdos compartidos, como 'jumping in the pool' y 'at the beach in the winter', subraya la importancia de estos momentos. La canción concluye con una imagen poderosa de 'dark blue water, crystal clear', simbolizando la claridad y la pureza de los recuerdos, aunque estos se desvanecen inevitablemente como 'your face in the forest'. En conjunto, es una balada conmovedora que captura la esencia de la belleza de los recuerdos que perduran.</p>
+
+                <p style="margin-top:25px; font-weight:bold; color:var(--water-blue);">Escrita por: Josh Conway & Maria Zardoya.</p>
+                <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
+            </div>
+        </div>
+
+        <audio id="audio" src="sienna.mp3" preload="auto"></audio>
+
+        <script>
+            const audio = document.getElementById('audio');
+            const container = document.getElementById('lrcContainer');
+            const flare = document.getElementById('flare');
+            const playBtn = document.getElementById('playBtn');
+            const progress = document.getElementById('progress');
+            const curTimeText = document.getElementById('curTime');
+            const bubbleBox = document.getElementById('bubbleBox');
+            let currentActiveLine = null;
+
+            function parseTime(timeStr) {
+                if (!timeStr) return 0;
+                const parts = timeStr.split(':');
+                if (parts.length < 2) return parseFloat(timeStr);
+                return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+            }
+
+            function setupAppleLyrics() {
+                const lines = document.querySelectorAll('.line');
+                lines.forEach(line => {
+                    const enSpan = line.querySelector('.en');
+                    const originalText = enSpan.textContent;
+                    enSpan.innerHTML = '';
+                    originalText.split(' ').forEach(word => {
+                        const span = document.createElement('span');
+                        span.className = 'word';
+                        span.textContent = word;
+                        enSpan.appendChild(span);
+                        enSpan.appendChild(document.createTextNode(' '));
+                    });
+                });
+            }
+            setupAppleLyrics();
+
+            function toggle() {
+                audio.paused ? audio.play() : audio.pause();
+            }
+            audio.addEventListener('play', () => playBtn.innerHTML = "❚❚");
+            audio.addEventListener('pause', () => playBtn.innerHTML = "►");
+
+            audio.addEventListener('timeupdate', () => {
+                const t = audio.currentTime;
+                if (audio.duration) progress.value = (t / audio.duration) * 100;
+                curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+
+                const lines = document.querySelectorAll('.line');
+                lines.forEach((line, i) => {
+                    const startTime = parseTime(line.dataset.t);
+                    const nextLine = lines[i + 1];
+                    const endTime = nextLine ? parseTime(nextLine.dataset.t) : startTime + 4;
+
+                    if (t >= startTime && t < endTime) {
+                        if (currentActiveLine !== line) {
+                            if (currentActiveLine) currentActiveLine.classList.remove('active');
+                            currentActiveLine = line;
+                            line.classList.add('active');
+                            container.scrollTo({
+                                top: line.offsetTop - container.offsetTop - 180,
+                                behavior: 'smooth'
+                            });
                         }
-                        currentActiveLine = line;
-                        line.classList.add('active');
-
-                        const enSpan = line.querySelector('.en');
-                        const text = enSpan.textContent;
-                        enSpan.dataset.orig = text;
-                        enSpan.innerHTML = [...text].map((c, idx) => 
-                            `<span style="animation-delay:${idx * 0.03}s">${c === ' ' ? '&nbsp;' : c}</span>`
-                        ).join('');
-
-                        container.scrollTo({
-                            top: line.offsetTop - container.offsetTop - (container.clientHeight / 2) + 20,
-                            behavior: 'smooth'
+                        const words = line.querySelectorAll('.word');
+                        const progressInLine = t - startTime;
+                        const duration = endTime - startTime;
+                        const wordsToHighlight = Math.floor((progressInLine / duration) * words.length * 1.5);
+                        words.forEach((word, idx) => {
+                            if (idx <= wordsToHighlight) word.classList.add('highlight');
+                            else word.classList.remove('highlight');
                         });
+                    } else {
+                        line.classList.remove('active');
+                        line.querySelectorAll('.word').forEach(w => w.classList.remove('highlight'));
                     }
+                });
+                if (audio.duration && t >= audio.duration - 1) goShuffle();
+            });
+
+            document.addEventListener('click', (e) => {
+                const line = e.target.closest('.line');
+                if (line) {
+                    audio.currentTime = parseTime(line.dataset.t);
+                    audio.play();
                 }
             });
 
-            // Auto-Shuffle al terminar
-            if (audio.duration && t >= audio.duration - 1) goShuffle();
-        });
+            document.addEventListener('mousemove', (e) => {
+                flare.style.setProperty('--x', (e.clientX / window.innerWidth * 100) + '%');
+                flare.style.setProperty('--y', (e.clientY / window.innerHeight * 100) + '%');
+            });
 
-        function goShuffle() {
-            const pages = ['player.html', 'player3.html', 'player4.html'];
-            window.location.href = pages[Math.floor(Math.random() * pages.length)];
-        }
+            function createBubbles() {
+                bubbleBox.innerHTML = '';
+                for (let i = 0; i < 25; i++) {
+                    let b = document.createElement('div');
+                    b.className = 'bubble';
+                    let size = Math.random() * 40 + 10 + 'px';
+                    b.style.width = size;
+                    b.style.height = size;
+                    b.style.left = Math.random() * 100 + '%';
+                    b.style.animationDuration = Math.random() * 8 + 4 + 's';
+                    bubbleBox.appendChild(b);
+                }
+            }
+            createBubbles();
 
-        progress.oninput = () => { audio.currentTime = (progress.value / 100) * audio.duration; };
-        document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
-    </script>
-</body>
+            function goShuffle() {
+                const p = ['index.html', 'player3.html', 'player4.html', 'player5.html', 'player6.html'];
+                window.location.href = p[Math.floor(Math.random() * p.length)];
+            }
+
+            progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
+            document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
+        </script>
+    </body>
+
 </html>

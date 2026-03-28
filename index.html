@@ -3,14 +3,16 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>The Marías - No One Noticed (Apple Style)</title>
+        <title>The Marías - Lejos de Ti (Main Player)</title>
         <style>
             :root {
+                /* Restauración de Tonos Azules Originales */
                 --deep-ocean: #010b14;
                 --water-blue: #38bdf8;
                 --accent-gray: #1e293b;
-                --glass: rgba(255, 255, 255, 0.04);
-                --glow: rgba(56, 189, 248, 0.3);
+                /* Tono azul grisáceo para palabras apagadas */
+                --glass: rgba(255, 255, 255, 0.05);
+                --glow: rgba(56, 189, 248, 0.4);
                 --fog-color: rgba(56, 189, 248, 0.08);
                 --lens-flare: rgba(56, 189, 248, 0.05);
             }
@@ -118,7 +120,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
                 padding-right: 40px;
             }
 
@@ -193,7 +195,7 @@
 
             .word.highlight {
                 color: var(--water-blue);
-                text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+                text-shadow: 0 0 15px var(--water-blue);
                 animation: individualWave 1.4s ease-in-out infinite;
             }
 
@@ -280,14 +282,14 @@
 
         <div class="main-container">
             <div class="player-left">
-                <img src="non.png" class="cover">
+                <img src="icon.png" class="cover">
                 <div style="text-align:center;">
-                    <h2 style="margin:0; letter-spacing: 1px; color: var(--water-blue);">No One Noticed</h2>
+                    <h2 style="margin:0; letter-spacing: 1px; color: var(--water-blue);">Lejos de Ti</h2>
                     <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:5px; font-size:0.75rem;">THE MARÍAS</p>
                 </div>
                 <input type="range" id="progress" value="0">
                 <div style="display:flex; justify-content:space-between; width:100%; opacity:0.4; font-size:12px; margin-top:10px;">
-                    <span id="curTime">0:00</span><span>4:44</span>
+                    <span id="curTime">0:00</span><span>2:59</span>
                 </div>
                 <div style="margin:35px 0; display:flex; gap:35px; align-items:center;">
                     <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="18" style="filter:invert(1)"></button>
@@ -303,75 +305,55 @@
 
             <div class="player-right">
                 <div class="lyrics-scroll" id="lrcContainer">
-                    <div class="line" data-t="00:00.82"><span class="eng">Maybe I</span><span class="esp">Tal vez yo</span></div>
-                    <div class="line" data-t="00:04.88"><span class="eng">Lost my mind</span><span class="esp">Perdí mi mente</span></div>
-                    <div class="line" data-t="00:09.61"><span class="eng">No one noticed</span><span class="esp">Nadie se dio cuenta</span></div>
-                    <div class="line" data-t="00:14.63"><span class="eng">No one noticed</span><span class="esp">Nadie se dio cuenta</span></div>
-                    <div class="line" data-t="00:16.82"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="00:19.32"><span class="eng">It's getting old (I'd kinda like it if you'd call me)</span><span class="esp">Se está pasando de moda (me gustaría que me llamaras)</span></div>
-                    <div class="line" data-t="00:24.33"><span class="eng">All alone ('cause I'm so over bein' lonely)</span><span class="esp">Completamente sola (porque estoy harta de estar sola)</span></div>
-                    <div class="line" data-t="00:29.31"><span class="eng">May have lost it (I need a virtual connection)</span><span class="esp">Tal vez he enloquecido (necesito una conexión virtual)</span></div>
-                    <div class="line" data-t="00:34.24"><span class="eng">What if I have lost it (be my video obsession)</span><span class="esp">¿Y si he enloquecido? (sé mi obsesión de video)</span></div>
-                    <div class="line" data-t="00:38.98"><span class="eng">🎶🎵</span><span class="esp"></span></div>
-                    <div class="line" data-t="00:58.78"><span class="eng">No one tried</span><span class="esp">Nadie intentó</span></div>
-                    <div class="line" data-t="01:03.20"><span class="eng">To read my eyes</span><span class="esp">Leer mis ojos</span></div>
-                    <div class="line" data-t="01:06.41"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="01:08.49"><span class="eng">No one but you</span><span class="esp">Nadie excepto tú</span></div>
-                    <div class="line" data-t="01:11.46"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="01:13.48"><span class="eng">Wish it weren't true</span><span class="esp">Desearía que no fuera verdad</span></div>
-                    <div class="line" data-t="01:18.45"><span class="eng">Maybe I (I'd kinda like it if you'd call me)</span><span class="esp">Tal vez yo (me gustaría que me llamaras)</span></div>
-                    <div class="line" data-t="01:23.14"><span class="eng">It's not right ('cause I'm so over bein' lonely)</span><span class="esp">No está bien (porque estoy harta de estar sola)</span></div>
-                    <div class="line" data-t="01:28.09"><span class="eng">Make you mine (I need a virtual connection)</span><span class="esp">Hacerte mío (necesito una conexión virtual)</span></div>
-                    <div class="line" data-t="01:32.94"><span class="eng">Take our time (be my video obsession)</span><span class="esp">Tomarnos nuestro tiempo (sé mi obsesión de video)</span></div>
-                    <div class="line" data-t="01:39.31"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="01:44.59"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="01:49.45"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="01:53.92"><span class="eng">Hold me, console me, and then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y luego me iré sin rastro</span></div>
-                    <div class="line" data-t="01:58.92"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="02:04.04"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="02:08.88"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="02:13.64"><span class="eng">Hold me, console me, then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y me iré sin rastro</span></div>
-                    <div class="line" data-t="02:18.68"><span class="eng">Come on, don't leave me, it can't be that easy, babe</span><span class="esp">Vamos no me dejes, no puede ser así de fácil, cariño</span></div>
-                    <div class="line" data-t="02:23.54"><span class="eng">If you believe me, I guess I'll get on a plane</span><span class="esp">Si me crees creo que iré en avión</span></div>
-                    <div class="line" data-t="02:28.54"><span class="eng">Fly to your city excited to see your face</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara</span></div>
-                    <div class="line" data-t="02:33.19"><span class="eng">Hold me, console me, and then I'll leave without a trace (maybe I)</span><span class="esp">Abrázame, consuélame y me iré sin rastro (tal vez yo)</span></div>
-                    <div class="line" data-t="02:38.29"><span class="eng">Come on, don't leave me, it can't be that easy, babe (it's not right)</span><span class="esp">Vamos no me dejes, no puede ser así de fácil (no está bien)</span></div>
-                    <div class="line" data-t="02:43.15"><span class="eng">If you believe me, I guess I'll get on a plane (make you mine)</span><span class="esp">Si me crees creo que iré en avión (hacerte mío)</span></div>
-                    <div class="line" data-t="02:48.04"><span class="eng">Fly to your city excited to see your face (take our time)</span><span class="esp">Volaré a tu ciudad emocionada de ver tu cara (tomarnos nuestro tiempo)</span></div>
-                    <div class="line" data-t="02:52.91"><span class="eng">Hold me, console me and then I'll leave without a trace</span><span class="esp">Abrázame, consuélame y luego me iré sin rastro</span></div>
-                    <div class="line" data-t="02:57.46"><span class="eng">🎶🎵</span><span class="esp"></span></div>
-                    <div class="line" data-t="03:17.73"><span class="eng">I'd kinda like it if you'd call me (it's not right)</span><span class="esp">Me gustaría que me llamaras (no está bien)</span></div>
-                    <div class="line" data-t="03:22.66"><span class="eng">'Cause I'm so over bein' lonely (make you mine)</span><span class="esp">Porque estoy harta de estar sola (hacerte mío)</span></div>
-                    <div class="line" data-t="03:27.45"><span class="eng">I need a virtual connection (take our time)</span><span class="esp">Necesito una conexión virtual (tomarnos nuestro tiempo)</span></div>
-                    <div class="line" data-t="03:32.75"><span class="eng">Be my video obsession</span><span class="esp">Sé mi obsesión de video</span></div>
-                    <div class="line" data-t="03:35.96"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="03:57.10"><span class="eng">Estás tan dentro de mí</span><span class="esp">Estás tan dentro de mí</span></div>
-                    <div class="line" data-t="04:05.76"><span class="eng">Te sigo pensando</span><span class="esp">Te sigo pensando</span></div>
-                    <div class="line" data-t="04:10.80"><span class="eng">Te sigo esperando</span><span class="esp">Te sigo esperando</span></div>
-                    <div class="line" data-t="04:14.66"><span class="eng">🎶</span><span class="esp"></span></div>
-                    <div class="line" data-t="04:17.09"><span class="eng">Y estás, oh</span><span class="esp">Y estás, oh</span></div>
-                    <div class="line" data-t="04:20.76"><span class="eng">Tan lejos de mí, oh</span><span class="esp">Tan lejos de mí, oh</span></div>
-                    <div class="line" data-t="04:25.68"><span class="eng">Te sigo pensando</span><span class="esp">Te sigo pensando</span></div>
-                    <div class="line" data-t="04:31.08"><span class="eng">Me canso, llorando</span><span class="esp">Me canso, llorando</span></div>
+                    <div class="line" data-t="00:00.00"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:18.67"><span class="eng">El frío, la noche</span><span class="esp">El frío, la noche</span></div>
+                    <div class="line" data-t="00:21.57"><span class="eng">Siempre me acuerdo de ti</span><span class="esp">Siempre me acuerdo de ti</span></div>
+                    <div class="line" data-t="00:28.00"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:30.50"><span class="eng">Mile' de cancione'</span><span class="esp">Miles de canciones</span></div>
+                    <div class="line" data-t="00:33.31"><span class="eng">Siempre me acuerdo de ti</span><span class="esp">Siempre me acuerdo de ti</span></div>
+                    <div class="line" data-t="00:39.29"><span class="eng">¿Por qué estoy lejo' de ti?</span><span class="esp">¿Por qué estoy lejos de ti?</span></div>
+                    <div class="line" data-t="00:45.49"><span class="eng">No te olvide' de mí</span><span class="esp">No te olvides de mí</span></div>
+                    <div class="line" data-t="00:48.88"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="00:50.99"><span class="eng">¿Por qué estoy lejo' de ti?</span><span class="esp">¿Por qué estoy lejos de ti?</span></div>
+                    <div class="line" data-t="00:57.17"><span class="eng">No te olvide' de mí</span><span class="esp">No te olvides de mí</span></div>
+                    <div class="line" data-t="01:03.00"><span class="eng">🎶</span><span class="esp"></span></div>
+                    <div class="line" data-t="01:05.57"><span class="eng">Tus ojos tan tristes</span><span class="esp">Tus ojos tan tristes</span></div>
+                    <div class="line" data-t="01:08.49"><span class="eng">Siempre me acuerdo de ti</span><span class="esp">Siempre me acuerdo de ti</span></div>
+                    <div class="line" data-t="01:15.00"><span class="eng">🎶🎵</span><span class="esp"></span></div>
+                    <div class="line" data-t="01:17.21"><span class="eng">Momentos felices</span><span class="esp">Momentos felices</span></div>
+                    <div class="line" data-t="01:20.14"><span class="eng">Siempre me acuerdo de ti</span><span class="esp">Siempre me acuerdo de ti</span></div>
+                    <div class="line" data-t="01:26.06"><span class="eng">¿Por qué estoy lejo' de ti?</span><span class="esp">¿Por qué estoy lejos de ti?</span></div>
+                    <div class="line" data-t="01:32.26"><span class="eng">No te olvide' de mí</span><span class="esp">No te olvides de mí</span></div>
+                    <div class="line" data-t="01:37.82"><span class="eng">¿Por qué estoy lejo' de ti?</span><span class="esp">¿Por qué estoy lejos de ti?</span></div>
+                    <div class="line" data-t="01:43.97"><span class="eng">No te olvide' de mí</span><span class="esp">No te olvides de mí</span></div>
+                    <div class="line" data-t="01:50.97"><span class="eng">¿Por qué te sigo queriendo?</span><span class="esp">¿Por qué te sigo queriendo?</span></div>
+                    <div class="line" data-t="01:55.00"><span class="eng">Ya no puedo más</span><span class="esp">Ya no puedo más</span></div>
+                    <div class="line" data-t="01:56.87"><span class="eng">Entre tus manos me estoy muriendo</span><span class="esp">Entre tus manos me estoy muriendo</span></div>
+                    <div class="line" data-t="02:02.72"><span class="eng">¿Por qué yo sigo cantando "No Me Queda Más"</span><span class="esp">¿Por qué yo sigo cantando "No Me Queda Más"</span></div>
+                    <div class="line" data-t="02:08.62"><span class="eng">Entre mis labios, a todo llanto?</span><span class="esp">Entre mis labios, a todo llanto?</span></div>
+                    <div class="line" data-t="02:15.83"><span class="eng">Dormía en tu pecho</span><span class="esp">Dormía en tu pecho</span></div>
+                    <div class="line" data-t="02:18.72"><span class="eng">Siempre me acuerdo de ti</span><span class="esp">Siempre me acuerdo de ti</span></div>
+                    <div class="line" data-t="02:24.58"><span class="eng">¿Por qué estás lejos de mí?</span><span class="esp">¿Por qué estás lejos de mí?</span></div>
+                    <div class="line" data-t="02:30.41"><span class="eng">Yo no me olvido de ti</span><span class="esp">Yo no me olvido de ti</span></div>
+                    <div class="line" data-t="02:36.34"><span class="eng">¿Por qué estás lejos de mí?</span><span class="esp">¿Por qué estás lejos de mí?</span></div>
+                    <div class="line" data-t="02:42.09"><span class="eng">Nunca me olvido de ti</span><span class="esp">Nunca me olvido de ti</span></div>
+                    <div class="line" data-t="02:48.00"><span class="eng">🎶🎵</span><span class="esp"></span></div>
                 </div>
             </div>
         </div>
 
         <div class="meaning-box">
-            <h2>Conexiones Virtuales y Soledad en 'No One Noticed' de The Marías</h2>
+            <h2>La Nostalgia y el Amor a Distancia en 'Lejos de Ti' de The Marías</h2>
             <div class="meaning-content">
-                <p>La canción "No One Noticed - Extended Spanish" de The Marías explora temas de soledad, desconexión emocional y la búsqueda de conexiones significativas en un mundo cada vez más digital. La letra refleja un sentimiento de aislamiento, donde el protagonista siente que ha perdido la cordura sin que nadie lo note. Este sentimiento de invisibilidad se acentúa con la repetición de la frase "No one noticed", sugiriendo una falta de atención y comprensión por parte del entorno.</p>
-
-                <p>A lo largo de la canción, se percibe un anhelo por una conexión auténtica, aunque sea a través de medios digitales. La mención de una "conexión virtual" y la "obsesión por el video" resalta cómo las relaciones modernas a menudo se desarrollan en pantallas, lo que puede ser tanto una fuente de consuelo como de profunda frustración. La letra sugiere un deseo de escapar de la soledad, con la esperanza de que alguien especial pueda llenar ese vacío emocional a pesar de la distancia física.</p>
-
-                <p>El uso del español en la parte final añade una capa de intimidad y vulnerabilidad. Las líneas "Te sigo pensando, te sigo esperando" evocan una profunda añoranza y tristeza por alguien que está lejos. Esta mezcla de idiomas refleja la identidad bicultural de The Marías, creando un sonido único que resuena con la melancolía de la era digital, donde la proximidad física no siempre garantiza una conexión emocional genuina.</p>
-
-                <p style="margin-top:25px; font-weight:bold; color:var(--water-blue);">Escrita por: Gianluca Buccellati, The Marías & Josh Conway.</p>
+                <p>La canción 'Lejos de Ti' de The Marías es una expresión melancólica de amor y añoranza. La letra refleja el sentimiento de distancia emocional y física entre dos personas que, a pesar de estar separadas, no pueden olvidarse la una de la otra. El frío y la noche son metáforas de la soledad y la tristeza que siente el narrador al recordar a su ser amado. Las 'miles de canciones' podrían simbolizar los recuerdos y momentos compartidos que resuenan constantemente en la mente del narrador.</p>
+                <p>El estribillo, con su pregunta retórica '¿Por qué estoy lejos de ti?', subraya la confusión y el deseo de estar cerca de la persona amada. La repetición de 'no te olvides de mí' es un ruego para mantener viva la conexión a pesar de la distancia. La mención de 'tus ojos tan tristes' y 'momentos felices' sugiere una relación profunda y significativa que ha dejado una huella imborrable en el narrador. La canción también toca la desesperación y el sufrimiento que conlleva el amor separado, como se refleja en las líneas 'Entre tus manos me estoy muriendo' y 'Entre mis labios, a todo llanto'.</p>
+                <p>La música de The Marías se caracteriza por su fusión de géneros, incluyendo elementos de indie pop, jazz y psicodelia, lo que les permite crear atmósferas envolventes que complementan sus letras introspectivas. 'Lejos de Ti' es un ejemplo de cómo la banda utiliza su estilo suave y etéreo para transmitir emociones complejas y universales relacionadas con el amor y la pérdida.</p>
+                <p style="margin-top:25px; font-weight:bold; color:var(--water-blue);">Escrita por: Josh Conway, Maria Zardoya.</p>
                 <h3 style="border:none; opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
             </div>
         </div>
 
-        <audio id="audio" src="non.mp3" preload="auto"></audio>
+        <audio id="audio" src="lejos.mp3" preload="auto"></audio>
 
         <script>
             const audio = document.getElementById('audio');
@@ -386,7 +368,8 @@
             function parseTime(timeStr) {
                 if (!timeStr) return 0;
                 const parts = timeStr.split(':');
-                return parts.length < 2 ? parseFloat(timeStr) : parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+                if (parts.length < 2) return parseFloat(timeStr);
+                return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
             }
 
             function setupAppleLyrics() {
@@ -441,7 +424,9 @@
                             if (idx <= wordsToHighlight) {
                                 word.classList.add('highlight');
                                 word.style.animationDelay = (idx * 0.05) + 's';
-                            } else word.classList.remove('highlight');
+                            } else {
+                                word.classList.remove('highlight');
+                            }
                         });
                     } else {
                         line.classList.remove('active');
@@ -469,18 +454,18 @@
                 for (let i = 0; i < 25; i++) {
                     let b = document.createElement('div');
                     b.className = 'bubble';
-                    let size = Math.random() * 40 + 10 + 'px';
+                    let size = Math.random() * 40 + 5 + 'px';
                     b.style.width = size;
                     b.style.height = size;
                     b.style.left = Math.random() * 100 + '%';
-                    b.style.animationDuration = Math.random() * 8 + 4 + 's';
+                    b.style.animationDuration = Math.random() * 10 + 5 + 's';
                     bubbleBox.appendChild(b);
                 }
             }
             createBubbles();
 
             function goShuffle() {
-                const p = ['index.html', 'player2.html', 'player4.html', 'player5.html', 'player6.html'];
+                const p = ['player2.html', 'player3.html', 'player4.html', 'player5.html', 'player6.html'];
                 window.location.href = p[Math.floor(Math.random() * p.length)];
             }
 
