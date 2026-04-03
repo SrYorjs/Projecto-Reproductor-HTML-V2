@@ -50,7 +50,7 @@ Este ecosistema web representa mi **laboratorio personal de desarrollo**, diseñ
 
 ---
 
-## ✨ Especificaciones Técnicas de Ingeniería
+## ✨ Especificaciones Técnicas
 
 ### 🛠️ Core Engine (JS-Sync Engine)
 * **High-Precision Time-Coding:** Algoritmo optimizado en Vanilla JavaScript para el procesamiento de archivos LRC y marcas de tiempo en formato `MM:SS.ss`, garantizando una latencia imperceptible entre el audio y el renderizado de texto.
