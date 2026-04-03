@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Cigarettes After Sex - Stop Waiting</title>
+        <style>
+            @font-face {
+                font-family: 'Monocraft';
+                src: url('monocraft.ttf') format('truetype');
+            }
+
+            :root {
+                --bg-deep: #050505;
+                --bg-mid: #0a0a0a;
+                --soft-white: #ffffff;
+                --accent-gray: #252525;
+                --glass: rgba(255, 255, 255, 0.02);
+                --fog-particle: rgba(255, 255, 255, 0.06);
+            }
+
+            body {
+                margin: 0;
+                font-family: 'Monocraft', monospace;
+                background-color: var(--bg-deep);
+                color: var(--soft-white);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 50px 0;
+                position: relative;
+            }
+
+            .fog-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -2;
+                background: radial-gradient(circle at 50% 50%, var(--bg-mid), var(--bg-deep));
+                overflow: hidden;
+            }
+
+            .micro-fog {
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                background: var(--fog-particle);
+                border-radius: 50%;
+                filter: blur(20px);
+                animation: drift linear infinite;
+            }
+
+            @keyframes drift {
+                0% {
+                    transform: translateY(110vh) translateX(0) scale(1);
+                    opacity: 0;
+                }
+
+                20% {
+                    opacity: 0.8;
+                }
+
+                80% {
+                    opacity: 0.8;
+                }
+
+                100% {
+                    transform: translateY(-20vh) translateX(50px) scale(3);
+                    opacity: 0;
+                }
+            }
+
+            .main-container {
+                display: flex;
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(60px);
+                border-radius: 40px;
+                padding: 50px;
+                gap: 40px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 50px 150px rgba(0, 0, 0, 1);
+                z-index: 10;
+                margin-bottom: 60px;
+                box-sizing: border-box;
+            }
+
+            .player-left {
+                flex: 0 0 350px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                padding-right: 40px;
+            }
+
+            .cover {
+                width: 300px;
+                height: 300px;
+                border-radius: 10px;
+                object-fit: cover;
+                margin-bottom: 25px;
+                filter: grayscale(1) brightness(0.8);
+            }
+
+            input[type="range"] {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                outline: none;
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: #fff;
+                box-shadow: 0 0 15px #fff;
+                cursor: pointer;
+            }
+
+            .player-right {
+                flex: 1;
+                height: 480px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .lyrics-scroll {
+                height: 100%;
+                overflow-y: scroll;
+                scrollbar-width: none;
+                padding: 0 10px;
+                mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+                -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            }
+
+            .line {
+                padding: 22px 0;
+                transition: all 0.6s ease;
+                opacity: 0.1;
+                cursor: pointer;
+            }
+
+            .eng {
+                font-size: 1.7rem;
+                font-weight: 700;
+                display: block;
+                color: var(--accent-gray);
+                letter-spacing: -1px;
+            }
+
+            .word {
+                display: inline-block;
+                transition: color 0.4s ease, text-shadow 0.4s ease;
+                margin-right: 8px;
+            }
+
+            .word.highlight {
+                color: #fff;
+                text-shadow: 0 0 15px #fff;
+                animation: wave 1.4s ease-in-out infinite;
+            }
+
+            @keyframes wave {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-6px);
+                }
+            }
+
+            .esp {
+                font-size: 0.9rem;
+                opacity: 0.5;
+                display: block;
+                margin-top: 8px;
+            }
+
+            .line.active {
+                opacity: 1;
+                transform: translateX(10px);
+            }
+
+            .meaning-box {
+                width: 92%;
+                max-width: 1100px;
+                background: var(--glass);
+                backdrop-filter: blur(40px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 35px;
+                padding: 50px;
+                box-sizing: border-box;
+                z-index: 10;
+                margin-bottom: 80px;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            }
+
+            .meaning-box h2 {
+                color: var(--soft-white);
+                margin-top: 0;
+                font-size: 1.7rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 20px;
+            }
+
+            .meaning-content {
+                line-height: 2;
+                color: #d0d0d0;
+                font-size: 1.15rem;
+                text-align: justify;
+            }
+
+            .play-btn {
+                width: 80px;
+                height: 80px;
+                background: #fff;
+                color: #000;
+                border-radius: 50%;
+                border: none;
+                font-size: 28px;
+                cursor: pointer;
+                transition: 0.4s;
+            }
+
+            .play-btn:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px #fff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="fog-container" id="fogContainer"></div>
+
+        <div class="main-container">
+            <div class="player-left">
+                <img src="stopwaitingcas.png" class="cover">
+                <div style="text-align:center;">
+                    <h2 style="margin:0;">Stop Waiting</h2>
+                    <p style="margin:5px 0 25px; opacity:0.6; letter-spacing:4px; font-size:0.7rem;">CIGARETTES AFTER SEX</p>
+                </div>
+
+                <input type="range" id="progress" value="0">
+                <div style="display:flex; justify-content:space-between; width:100%; color: #fff; font-size:14px; margin-top:10px; font-weight: bold;">
+                    <span id="curTime">0:00</span><span>6:02</span>
+                </div>
+
+                <div style="margin:40px 0; display:flex; gap:35px; align-items:center;">
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="anterior.png" width="22" style="filter:invert(1)"></button>
+                    <button class="play-btn" id="playBtn" onclick="toggle()">►</button>
+                    <button style="background:none;border:none;cursor:pointer" onclick="goShuffle()"><img src="siguiente.png" width="22" style="filter:invert(1)"></button>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:12px; width:85%;">
+                    <span style="color: #fff; font-size: 20px;">🔉</span>
+                    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+                </div>
+                <h3 style="opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
+            </div>
+
+            <div class="player-right">
+                <div class="lyrics-scroll" id="lrcContainer">
+                    <div class="line" data-t="00:48.55"><span class="eng">In her favorite locket hiding yellow pills</span><span class="esp">En su estuche favorito, escondiendo pastillas amarillas</span></div>
+                    <div class="line" data-t="01:00.09"><span class="eng">With white wine to chase them lying on the hills</span><span class="esp">Con vino blanco para pasarlas, acostados en las colinas</span></div>
+                    <div class="line" data-t="01:10.04"><span class="eng">We kissed until we couldn't breathe</span><span class="esp">Nos besamos hasta que no pudimos respirar</span></div>
+                    <div class="line" data-t="01:16.21"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="01:21.42"><span class="eng">The coldest sand is on the beach</span><span class="esp">La arena más fría está en la playa</span></div>
+                    <div class="line" data-t="01:30.48"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="01:55.20"><span class="eng">Now she's in her swimsuit with the yellow stripes</span><span class="esp">Ahora ella está en su traje de baño con rayas amarillas</span></div>
+                    <div class="line" data-t="02:06.52"><span class="eng">Cutting it with scissors till there's nothing left</span><span class="esp">Cortándolo con tijeras hasta que no quede nada</span></div>
+                    <div class="line" data-t="02:16.98"><span class="eng">And rubbing sunscreen on her breasts</span><span class="esp">Y frotando protector solar en su pecho</span></div>
+                    <div class="line" data-t="02:23.22"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="02:27.73"><span class="eng">She's putting on sunglasses</span><span class="esp">Ella se está poniendo las gafas de Sol</span></div>
+                    <div class="line" data-t="02:35.76"><span class="eng">I could win I could lose</span><span class="esp">Podría ganar, podría perder</span></div>
+                    <div class="line" data-t="02:40.99"><span class="eng">But that's a look I can't refuse</span><span class="esp">Pero esa es una mirada que no puedo rechazar</span></div>
+                    <div class="line" data-t="02:46.90"><span class="eng">I could win I could lose</span><span class="esp">Podría ganar, podría perder</span></div>
+                    <div class="line" data-t="02:51.95"><span class="eng">But that's a look I can't refuse</span><span class="esp">Pero esa es una mirada que no puedo rechazar</span></div>
+                    <div class="line" data-t="02:57.40"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="03:19.59"><span class="eng">Stop waiting</span><span class="esp">Deja de esperar</span></div>
+                    <div class="line" data-t="03:45.22"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="04:25.19"><span class="eng">I could win I could lose</span><span class="esp">Podría ganar, podría perder</span></div>
+                    <div class="line" data-t="04:30.17"><span class="eng">But that's a look I can't refuse</span><span class="esp">Pero esa es una mirada que no puedo rechazar</span></div>
+                    <div class="line" data-t="04:36.32"><span class="eng">I could win I could lose</span><span class="esp">Podría ganar, podría perder</span></div>
+                    <div class="line" data-t="04:41.58"><span class="eng">But that's a look I can't refuse</span><span class="esp">Pero esa es una mirada que no puedo rechazar</span></div>
+                    <div class="line" data-t="04:46.62"><span class="eng">...</span><span class="esp">...</span></div>
+                    <div class="line" data-t="05:09.23"><span class="eng">Stop waiting</span><span class="esp">Deja de esperar</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="meaning-box">
+            <h2>La Paradoja del Deseo en 'Stop Waiting' de Cigarettes After Sex</h2>
+            <div class="meaning-content">
+                <p>La canción 'Stop Waiting' de Cigarettes After Sex se sumerge en una atmósfera de melancolía y deseo, características distintivas del estilo musical de la banda, conocida por sus melodías etéreas y letras introspectivas. La lírica presenta una serie de imágenes que sugieren una relación marcada por la dependencia y la evasión; la mención de las "pastillas amarillas" y el "vino blanco" simboliza un intento de escapar de la realidad o de enfrentar conflictos emocionales a través de la anestesia de las sustancias.</p>
+
+                <p>El estribillo "I could win, I could lose / But that's a look I can't refuse" refleja la ambivalencia del narrador ante la situación. A pesar de ser consciente de que la relación posee un resultado incierto y potencialmente destructivo, se siente incapaz de resistirse al magnetismo de la otra persona. En este contexto, la frase "Stop waiting" actúa como un llamado imperativo a la acción, sugiriendo la necesidad de abandonar la inercia y tomar una determinación definitiva respecto a sus sentimientos.</p>
+
+                <p>Con su tono minimalista y evocador, la obra invita a la reflexión sobre la naturaleza del deseo y la parálisis que genera la incertidumbre emocional. Cigarettes After Sex logra construir un espacio íntimo donde se explora la complejidad de las relaciones humanas y la eterna lucha interna entre la racionalidad y la pulsión del momento.</p>
+
+                <p style="margin-top:25px; font-weight:bold; color:var(--soft-white);">Escrita por: Gregory Steven Gonzalez</p>
+                <h3 style="opacity:0.4; font-size:0.75rem; margin-top: 30px; letter-spacing: 2px;">HTML made by SrYor</h3>
+            </div>
+        </div>
+
+        <audio id="audio" src="stopwaitingcas.mp3"></audio>
+
+        <script>
+            const audio = document.getElementById('audio');
+            const container = document.getElementById('lrcContainer');
+            const fogContainer = document.getElementById('fogContainer');
+            const playBtn = document.getElementById('playBtn');
+            const progress = document.getElementById('progress');
+            const curTimeText = document.getElementById('curTime');
+            let currentActiveLine = null;
+
+            function parseTime(t) {
+                const p = t.split(':');
+                return parseFloat(p[0]) * 60 + parseFloat(p[1]);
+            }
+
+            function setup() {
+                document.querySelectorAll('.line').forEach(line => {
+                    const eng = line.querySelector('.eng');
+                    const text = eng.textContent;
+                    eng.innerHTML = '';
+                    text.split(' ').forEach(w => {
+                        const s = document.createElement('span');
+                        s.className = 'word';
+                        s.textContent = w;
+                        eng.appendChild(s);
+                        eng.appendChild(document.createTextNode(' '));
+                    });
+                });
+            }
+            setup();
+
+            function createMicroFog() {
+                for (let i = 0; i < 150; i++) {
+                    const fog = document.createElement('div');
+                    fog.className = 'micro-fog';
+                    fog.style.left = Math.random() * 100 + 'vw';
+                    fog.style.top = Math.random() * 100 + 'vh';
+                    fog.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                    fog.style.animationDelay = (Math.random() * 10) + 's';
+                    fogContainer.appendChild(fog);
+                }
+            }
+            createMicroFog();
+
+            function toggle() {
+                audio.paused ? audio.play() : audio.pause();
+            }
+            audio.onplay = () => playBtn.innerHTML = "❚❚";
+            audio.onpause = () => playBtn.innerHTML = "►";
+
+            audio.ontimeupdate = () => {
+                const t = audio.currentTime;
+                progress.value = (t / audio.duration) * 100 || 0;
+                curTimeText.textContent = Math.floor(t / 60) + ":" + Math.floor(t % 60).toString().padStart(2, '0');
+
+                const lines = document.querySelectorAll('.line');
+                lines.forEach((line, i) => {
+                    const start = parseTime(line.dataset.t);
+                    const next = lines[i + 1];
+                    const end = next ? parseTime(next.dataset.t) : start + 10;
+
+                    if (t >= start && t < end) {
+                        if (currentActiveLine !== line) {
+                            if (currentActiveLine) {
+                                currentActiveLine.classList.remove('active');
+                                currentActiveLine.querySelectorAll('.word').forEach(w => w.classList.remove('highlight'));
+                            }
+                            currentActiveLine = line;
+                            line.classList.add('active');
+                            container.scrollTo({
+                                top: line.offsetTop - 180,
+                                behavior: 'smooth'
+                            });
+                        }
+
+                        const words = line.querySelectorAll('.word');
+                        const progressInLine = (t - start) / (end - start);
+                        const wordsToHighlight = Math.floor(progressInLine * words.length * 1.3);
+                        words.forEach((w, j) => {
+                            if (j <= wordsToHighlight) w.classList.add('highlight');
+                            else w.classList.remove('highlight');
+                        });
+                    } else if (t >= end || t < start) {
+                        line.classList.remove('active');
+                        line.querySelectorAll('.word').forEach(w => w.classList.remove('highlight'));
+                    }
+                });
+            };
+
+            document.querySelectorAll('.line').forEach(line => {
+                line.addEventListener('click', () => {
+                    audio.currentTime = parseTime(line.dataset.t);
+                    audio.play();
+                });
+            });
+
+            function goShuffle() {
+                const p = ['index.html', 'player2.html', 'player3.html', 'player4.html', 'player5.html', 'player6.html'];
+                window.location.href = p[Math.floor(Math.random() * p.length)];
+            }
+
+            progress.oninput = () => audio.currentTime = (progress.value / 100) * audio.duration;
+            document.getElementById('volume').oninput = (e) => audio.volume = e.target.value;
+        </script>
+    </body>
+
+</html>
