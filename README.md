@@ -28,10 +28,15 @@ Experimenta la arquitectura visual y el motor de sincronización en tiempo real 
 | <img src="non.png" width="300" alt="Ocean Stage" /> | <img src="heavy.png" width="300" alt="Blood Stage" /> | <img src="nobody.png" width="300" alt="Mono Stage" /> |
 | *No One Noticed* | *Heavy* | *Nobody New* |
 
-| **Stage: Golden Glow** | **Stage: Cyan Nostalgia** | **Stage: Noir Fog** |
+| **Stage: Golden Glow** | **Stage: Cyan Nostalgia** | **Stage: Crystal Clear** |
 | :---: | :---: | :---: |
-| <img src="yourface.png" width="300" alt="Golden Stage" /> | <img src="non.png" width="300" alt="Cyan Stage" /> | <img src="stopwaitingcas.png" width="300" alt="Noir Stage" /> |
-| *I Thought I Saw Your Face Today* | *Sienna* | *Stop Waiting* |
+| <img src="yourface.png" width="300" alt="Golden Stage" /> | <img src="non.png" width="300" alt="Cyan Stage" /> | <img src="non.png" width="300" alt="Clear Stage" /> |
+| *I Thought I Saw Your Face Today* | *Sienna* | *Lejos de Ti* |
+
+| **Stage: Noir Fog** |
+| :---: |
+| <img src="stopwaitingcas.png" width="300" alt="Noir Stage" /> |
+| *Stop Waiting* |
 
 ---
 
